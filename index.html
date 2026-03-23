@@ -316,7 +316,10 @@
         }
         // 브랜딩 기획서 완료 버튼 함수
         function submitForm() {
-            showToast("기획서가 저장되었어요! 이제 멋진 웹사이트를 만들어봐요! ✨");
+            showToast("기획서가 저장되었어요! 캔바로 이동합니다! ✨");
+            setTimeout(function(){
+                window.open("https://www.canva.com/", "_blank");
+            }, 1000);
         }
     </script>
 </body>
