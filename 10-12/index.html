@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 헬스케어 로봇 해커톤 카드</title>
-    <!-- Tailwind CSS -->
+    <title>10~12차시 · 해커톤: AI 헬스케어 로봇</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Jua (귀여운 한글 폰트) -->
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <style>
         body {
@@ -16,6 +13,8 @@
             background-color: #F3F8FF;
             background-image: radial-gradient(#D6E6FF 2px, transparent 2px);
             background-size: 30px 30px;
+            color: #374151;
+            padding-bottom: 80px;
         }
         .card-hover {
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
@@ -44,7 +43,19 @@
             transform: scale(0);
             transition: all 0.3s ease;
         }
-        /* 커스텀 토스트 알림창 */
+        .input-base {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            border: 2px solid #E5E7EB;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .input-base:focus {
+            border-color: #6366F1;
+            background-color: #EEF2FF;
+        }
         #toast {
             visibility: hidden;
             min-width: 250px;
@@ -68,18 +79,52 @@
             opacity: 1;
             bottom: 50px;
         }
+        @media print {
+            .no-print { display: none !important; }
+            body { background-image: none; }
+        }
     </style>
 </head>
 <body class="text-gray-800 pb-20 p-4 md:p-8">
-    <!-- Header -->
-    <header class="text-center mb-12 animate-fade-in-down mt-6">
-        <div class="inline-block bg-white px-8 py-4 rounded-full shadow-md border-4 border-blue-200 mb-4">
-            <h1 class="text-4xl md:text-5xl font-bold text-blue-600 drop-shadow-sm">
-                <i class="fa-solid fa-robot mr-2 animate-bounce"></i> AI 헬스케어 로봇 해커톤
-            </h1>
+
+    <!-- Navigation -->
+    <nav class="max-w-6xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-3 no-print">
+        <a href="../" class="inline-flex items-center gap-2 bg-white px-5 py-2.5 rounded-full shadow-md text-red-600 font-bold hover:bg-red-50 transition text-lg">
+            <i class="fa-solid fa-arrow-left"></i> 메인으로
+        </a>
+        <div class="flex gap-2 flex-wrap">
+            <a href="../1-3/" class="px-4 py-2 rounded-full text-sm font-bold bg-yellow-100 text-yellow-700 hover:bg-yellow-200 transition">1~3차시</a>
+            <a href="../4-6/" class="px-4 py-2 rounded-full text-sm font-bold bg-blue-100 text-blue-700 hover:bg-blue-200 transition">4~6차시</a>
+            <a href="../7-9/" class="px-4 py-2 rounded-full text-sm font-bold bg-green-100 text-green-700 hover:bg-green-200 transition">7~9차시</a>
+            <span class="px-4 py-2 rounded-full text-sm font-bold bg-red-500 text-white shadow-md">10~12차시</span>
         </div>
-        <p class="text-xl md:text-2xl text-gray-600 mt-2">우리가 직접 스타트업 CEO가 되어 세상을 바꿀 로봇을 만들어요!</p>
+    </nav>
+
+    <!-- Header -->
+    <header class="text-center mb-10 mt-4">
+        <div class="inline-block mb-4">
+            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center text-5xl shadow-lg border-4 border-red-300 mx-auto">
+                <i class="fa-solid fa-robot text-red-500"></i>
+            </div>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-bold text-red-600 mb-3 drop-shadow-sm">
+            10~12차시 · 해커톤:<br>AI 헬스케어 로봇
+        </h1>
+        <p class="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            우리가 직접 스타트업 CEO가 되어 세상을 바꿀 로봇을 만들어요!
+        </p>
     </header>
+
+    <!-- Action Buttons -->
+    <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-3 mb-8 no-print">
+        <button onclick="window.print()" class="inline-flex items-center gap-2 bg-white px-5 py-2.5 rounded-full shadow-md text-purple-600 font-bold hover:bg-purple-50 transition">
+            <i class="fa-solid fa-print"></i> 인쇄하기
+        </button>
+        <button onclick="clearAllData()" class="inline-flex items-center gap-2 bg-white px-5 py-2.5 rounded-full shadow-md text-red-500 font-bold hover:bg-red-50 transition">
+            <i class="fa-solid fa-rotate-left"></i> 초기화
+        </button>
+    </div>
+
     <main class="max-w-6xl mx-auto space-y-16">
         <!-- 1. 팀 역할 섹션 -->
         <section>
@@ -87,7 +132,7 @@
                 <i class="fa-solid fa-users text-3xl text-yellow-500"></i>
                 <h2 class="text-3xl font-bold text-gray-700">1. 우리 팀의 역할을 정해요!</h2>
             </div>
- 
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 <!-- 리더 -->
                 <div class="card-hover bg-white rounded-3xl p-6 shadow-md border-b-8 border-yellow-400 text-center flex flex-col items-center">
@@ -97,7 +142,6 @@
                     <h3 class="text-2xl font-bold text-yellow-600 mb-2">리더</h3>
                     <p class="text-gray-600 leading-snug">미션 분석<br>우선순위 결정<br>발표 총괄</p>
                 </div>
- 
                 <!-- AI 개발자 -->
                 <div class="card-hover bg-white rounded-3xl p-6 shadow-md border-b-8 border-blue-400 text-center flex flex-col items-center">
                     <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center text-4xl text-blue-500 mb-4 shadow-inner">
@@ -132,7 +176,9 @@
                 </div>
             </div>
         </section>
+
         <hr class="border-2 border-dashed border-blue-200">
+
         <!-- 2. 공통 미션 섹션 -->
         <section>
             <div class="flex items-center justify-center gap-3 mb-6">
@@ -152,7 +198,9 @@
                 </div>
             </div>
         </section>
+
         <hr class="border-2 border-dashed border-blue-200">
+
         <!-- 3. 선택 미션 섹션 -->
         <section>
             <div class="flex items-center justify-center gap-3 mb-2">
@@ -160,59 +208,58 @@
                 <h2 class="text-3xl font-bold text-gray-700">3. 선택 미션을 2개 골라주세요!</h2>
             </div>
             <p class="text-center text-gray-500 text-lg mb-8">해결하고 싶은 카드를 클릭해 보세요 (최대 2개)</p>
- 
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- 선택 미션 카드들 -->
-                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" onclick="toggleMission(this)">
+                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" data-mission="squat" onclick="toggleMission(this)">
                     <div class="check-icon absolute top-4 right-4 text-3xl text-red-500"><i class="fa-solid fa-circle-check"></i></div>
                     <div class="text-4xl text-teal-500 mb-3"><i class="fa-solid fa-dumbbell"></i></div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">스쿼트 코치</h3>
                     <p class="text-gray-600">스쿼트 자세 시연 및<br>개수 카운트 하기</p>
                 </div>
-                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" onclick="toggleMission(this)">
+                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" data-mission="sleep" onclick="toggleMission(this)">
                     <div class="check-icon absolute top-4 right-4 text-3xl text-red-500"><i class="fa-solid fa-circle-check"></i></div>
                     <div class="text-4xl text-indigo-500 mb-3"><i class="fa-solid fa-bed"></i></div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">바른 자세 수면</h3>
                     <p class="text-gray-600">옆으로 자면 경보 울리고<br>가볍게 밀어주기</p>
                 </div>
-                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" onclick="toggleMission(this)">
+                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" data-mission="water" onclick="toggleMission(this)">
                     <div class="check-icon absolute top-4 right-4 text-3xl text-red-500"><i class="fa-solid fa-circle-check"></i></div>
                     <div class="text-4xl text-cyan-500 mb-3"><i class="fa-solid fa-glass-water"></i></div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">물 섭취 알림</h3>
                     <p class="text-gray-600">시간별 알림 울리고<br>냉장고 문 열어주기</p>
                 </div>
-                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" onclick="toggleMission(this)">
+                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" data-mission="turtle" onclick="toggleMission(this)">
                     <div class="check-icon absolute top-4 right-4 text-3xl text-red-500"><i class="fa-solid fa-circle-check"></i></div>
                     <div class="text-4xl text-emerald-500 mb-3"><i class="fa-solid fa-user-doctor"></i></div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">거북목 경보기</h3>
                     <p class="text-gray-600">거북목 자세 발견 시<br>이마 살짝 밀어주기</p>
                 </div>
-                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" onclick="toggleMission(this)">
+                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" data-mission="alarm" onclick="toggleMission(this)">
                     <div class="check-icon absolute top-4 right-4 text-3xl text-red-500"><i class="fa-solid fa-circle-check"></i></div>
                     <div class="text-4xl text-yellow-500 mb-3"><i class="fa-solid fa-clock"></i></div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">아침 알람</h3>
                     <p class="text-gray-600">아침 알림 소리와 함께<br>몸을 툭툭 건드리기</p>
                 </div>
-                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" onclick="toggleMission(this)">
+                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" data-mission="cheer" onclick="toggleMission(this)">
                     <div class="check-icon absolute top-4 right-4 text-3xl text-red-500"><i class="fa-solid fa-circle-check"></i></div>
                     <div class="text-4xl text-rose-500 mb-3"><i class="fa-solid fa-hands-clapping"></i></div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">응원 로봇</h3>
                     <p class="text-gray-600">음성 인식으로 기분 파악 후<br>신나게 춤추기</p>
                 </div>
-                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" onclick="toggleMission(this)">
+                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" data-mission="eyedrop" onclick="toggleMission(this)">
                     <div class="check-icon absolute top-4 right-4 text-3xl text-red-500"><i class="fa-solid fa-circle-check"></i></div>
                     <div class="text-4xl text-sky-500 mb-3"><i class="fa-solid fa-eye-dropper"></i></div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">안약 알리미</h3>
                     <p class="text-gray-600">정해진 시간이 되면<br>안약통 뚜껑 열어주기</p>
                 </div>
-                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" onclick="toggleMission(this)">
+                <div class="mission-card bg-white rounded-3xl p-6 shadow-md cursor-pointer relative" data-mission="brush" onclick="toggleMission(this)">
                     <div class="check-icon absolute top-4 right-4 text-3xl text-red-500"><i class="fa-solid fa-circle-check"></i></div>
                     <div class="text-4xl text-slate-500 mb-3"><i class="fa-solid fa-tooth"></i></div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">양치 타이머</h3>
                     <p class="text-gray-600">양치하는 3분 동안<br>음악과 모터 작동하기</p>
                 </div>
             </div>
- 
+
             <!-- 선택 완료 상태 표시 -->
             <div class="text-center mt-8">
                 <span id="counter-badge" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-full text-xl font-bold transition-colors duration-300">
@@ -220,46 +267,46 @@
                 </span>
             </div>
         </section>
+
         <hr class="border-2 border-dashed border-blue-200">
-        <!-- 4. 로봇 브랜딩 섹션 (추가됨) -->
+
+        <!-- 4. 로봇 브랜딩 섹션 -->
         <section>
             <div class="flex items-center justify-center gap-3 mb-4">
                 <i class="fa-solid fa-lightbulb text-3xl text-indigo-500"></i>
                 <h2 class="text-3xl font-bold text-gray-700">4. 우리 팀만의 로봇을 브랜딩해요!</h2>
             </div>
             <p class="text-center text-gray-500 text-lg mb-8">스타트업 CEO가 되어 캔바(Canva)에 들어갈 내용을 미리 적어보세요!</p>
- 
+
             <div class="bg-white rounded-3xl p-6 md:p-10 shadow-lg border-4 border-indigo-100 max-w-4xl mx-auto">
                 <form class="space-y-6" onsubmit="event.preventDefault(); submitForm();">
- 
                     <!-- 로봇 이름 -->
                     <div>
                         <label class="block text-xl font-bold text-indigo-600 mb-2"><i class="fa-solid fa-robot mr-2"></i>로봇 이름</label>
-                        <input type="text" placeholder="예: 거북목 지킴이 '꼬부기'" class="w-full px-4 py-3 rounded-2xl border-2 border-indigo-100 focus:border-indigo-400 focus:bg-indigo-50 outline-none transition-all text-lg">
+                        <input type="text" id="1012-robot-name" placeholder="예: 거북목 지킴이 '꼬부기'" class="w-full px-4 py-3 rounded-2xl border-2 border-indigo-100 focus:border-indigo-400 focus:bg-indigo-50 outline-none transition-all text-lg">
                     </div>
- 
                     <!-- 슬로건 -->
                     <div>
                         <label class="block text-xl font-bold text-pink-600 mb-2"><i class="fa-solid fa-bullhorn mr-2"></i>우리의 슬로건</label>
-                        <input type="text" placeholder="예: 당신의 목을 지켜주는 든든한 친구!" class="w-full px-4 py-3 rounded-2xl border-2 border-pink-100 focus:border-pink-400 focus:bg-pink-50 outline-none transition-all text-lg">
+                        <input type="text" id="1012-slogan" placeholder="예: 당신의 목을 지켜주는 든든한 친구!" class="w-full px-4 py-3 rounded-2xl border-2 border-pink-100 focus:border-pink-400 focus:bg-pink-50 outline-none transition-all text-lg">
                     </div>
                     <!-- 해결하려는 문제 -->
                     <div>
                         <label class="block text-xl font-bold text-blue-600 mb-2"><i class="fa-solid fa-magnifying-glass mr-2"></i>해결하려는 문제</label>
-                        <textarea rows="2" placeholder="우리의 로봇은 어떤 불편함을 해결해주나요?" class="w-full px-4 py-3 rounded-2xl border-2 border-blue-100 focus:border-blue-400 focus:bg-blue-50 outline-none transition-all text-lg resize-none"></textarea>
+                        <textarea id="1012-problem" rows="2" placeholder="우리의 로봇은 어떤 불편함을 해결해주나요?" class="w-full px-4 py-3 rounded-2xl border-2 border-blue-100 focus:border-blue-400 focus:bg-blue-50 outline-none transition-all text-lg resize-none"></textarea>
                     </div>
                     <!-- 적용된 AI 기술 -->
                     <div>
                         <label class="block text-xl font-bold text-green-600 mb-2"><i class="fa-solid fa-microchip mr-2"></i>적용된 AI 기술</label>
-                        <textarea rows="2" placeholder="이미지 분류, 음성 인식, 비디오 감지 등 어떤 AI 기술을 사용했나요?" class="w-full px-4 py-3 rounded-2xl border-2 border-green-100 focus:border-green-400 focus:bg-green-50 outline-none transition-all text-lg resize-none"></textarea>
+                        <textarea id="1012-ai-tech" rows="2" placeholder="이미지 분류, 음성 인식, 비디오 감지 등 어떤 AI 기술을 사용했나요?" class="w-full px-4 py-3 rounded-2xl border-2 border-green-100 focus:border-green-400 focus:bg-green-50 outline-none transition-all text-lg resize-none"></textarea>
                     </div>
                     <!-- 안전한 AI 원칙 -->
                     <div>
                         <label class="block text-xl font-bold text-orange-600 mb-2"><i class="fa-solid fa-shield-heart mr-2"></i>안전한 AI 원칙</label>
-                        <textarea rows="2" placeholder="우리의 AI 로봇이 지켜야 할 착한 규칙은 무엇인가요?" class="w-full px-4 py-3 rounded-2xl border-2 border-orange-100 focus:border-orange-400 focus:bg-orange-50 outline-none transition-all text-lg resize-none"></textarea>
+                        <textarea id="1012-ai-safety" rows="2" placeholder="우리의 AI 로봇이 지켜야 할 착한 규칙은 무엇인가요?" class="w-full px-4 py-3 rounded-2xl border-2 border-orange-100 focus:border-orange-400 focus:bg-orange-50 outline-none transition-all text-lg resize-none"></textarea>
                     </div>
                     <!-- 제출 버튼 -->
-                    <div class="text-center pt-6">
+                    <div class="text-center pt-6 no-print">
                         <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform transition hover:scale-105 active:scale-95">
                             <i class="fa-solid fa-rocket mr-2"></i> 기획서 완성하고 캔바로 이동!
                         </button>
@@ -268,34 +315,46 @@
             </div>
         </section>
     </main>
-    <!-- 커스텀 알림창 -->
+
+    <!-- Footer -->
+    <footer class="text-center mt-16 text-gray-400 text-sm no-print">
+        <p><i class="fa-solid fa-heart text-red-300"></i> 꼬마 CEO의 AI 건강지킴이 로봇 스타트업 출시기 <i class="fa-solid fa-heart text-red-300"></i></p>
+    </footer>
+
+    <!-- Toast -->
     <div id="toast"></div>
+
     <script>
-        let selectedCount = 0;
+        // ==================== 미션 선택 로직 ====================
+        let selectedMissions = [];
         const maxSelection = 2;
+
         function toggleMission(cardElement) {
+            const mission = cardElement.dataset.mission;
             const isSelected = cardElement.classList.contains('selected');
+
             if (isSelected) {
-                // 선택 해제
                 cardElement.classList.remove('selected');
-                selectedCount--;
+                selectedMissions = selectedMissions.filter(m => m !== mission);
             } else {
-                // 새로운 선택
-                if (selectedCount < maxSelection) {
+                if (selectedMissions.length < maxSelection) {
                     cardElement.classList.add('selected');
-                    selectedCount++;
+                    selectedMissions.push(mission);
                 } else {
-                    showToast("앗! 미션은 2개까지만 고를 수 있어요! 😅");
+                    showToast("앗! 미션은 2개까지만 고를 수 있어요!");
+                    return;
                 }
             }
+            localStorage.setItem('1012-missions', JSON.stringify(selectedMissions));
             updateCounter();
         }
+
         function updateCounter() {
             const countSpan = document.getElementById('count');
             const badge = document.getElementById('counter-badge');
- 
-            countSpan.innerText = selectedCount;
-            if (selectedCount === maxSelection) {
+            countSpan.textContent = selectedMissions.length;
+
+            if (selectedMissions.length === maxSelection) {
                 badge.classList.remove('bg-gray-200', 'text-gray-700');
                 badge.classList.add('bg-blue-500', 'text-white', 'shadow-lg');
             } else {
@@ -303,21 +362,66 @@
                 badge.classList.remove('bg-blue-500', 'text-white', 'shadow-lg');
             }
         }
-        // 토스트 메시지 함수 업데이트
-        function showToast(message) {
-            const toast = document.getElementById("toast");
-            toast.innerText = message; // 전달받은 메시지로 텍스트 변경
-            toast.classList.add("show");
- 
-            // 3초 후 알림창 숨기기
-            setTimeout(function(){
-                toast.classList.remove("show");
-            }, 3000);
+
+        function restoreMissions() {
+            const saved = localStorage.getItem('1012-missions');
+            if (saved) {
+                const missions = JSON.parse(saved);
+                missions.forEach(m => {
+                    const card = document.querySelector(`.mission-card[data-mission="${m}"]`);
+                    if (card) {
+                        card.classList.add('selected');
+                        selectedMissions.push(m);
+                    }
+                });
+                updateCounter();
+            }
         }
-        // 브랜딩 기획서 완료 버튼 함수
+
+        // ==================== 토스트 알림 ====================
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ==================== 브랜딩 폼 제출 ====================
         function submitForm() {
-            showToast("기획서가 저장되었어요! 이제 멋진 웹사이트를 만들어봐요! ✨");
+            showToast("기획서가 저장되었어요! 이제 멋진 웹사이트를 만들어봐요!");
         }
+
+        // ==================== localStorage 자동 저장 ====================
+        function initLocalStorage() {
+            const inputs = document.querySelectorAll('input[id], textarea[id]');
+            inputs.forEach(input => {
+                const saved = localStorage.getItem(input.id);
+                if (saved !== null) input.value = saved;
+                input.addEventListener('input', () => localStorage.setItem(input.id, input.value));
+            });
+        }
+
+        // ==================== 초기화 ====================
+        function clearAllData() {
+            if (confirm('작성한 내용을 모두 지울까요? (복구할 수 없습니다)')) {
+                document.querySelectorAll('input[id], textarea[id]').forEach(el => {
+                    localStorage.removeItem(el.id);
+                    el.value = '';
+                });
+                // 미션 선택 초기화
+                document.querySelectorAll('.mission-card').forEach(c => c.classList.remove('selected'));
+                selectedMissions = [];
+                localStorage.removeItem('1012-missions');
+                updateCounter();
+                showToast('모든 데이터가 초기화 되었습니다.');
+            }
+        }
+
+        // ==================== 초기화 실행 ====================
+        window.addEventListener('DOMContentLoaded', () => {
+            initLocalStorage();
+            restoreMissions();
+        });
     </script>
 </body>
 </html>
