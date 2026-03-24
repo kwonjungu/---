@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1~3차시 · 스타트업 창업과 첫 번째 의뢰</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <style>
+        body { font-family:'Jua',sans-serif; background-color:#F3F8FF; background-image:radial-gradient(#D6E6FF 2px,transparent 2px); background-size:30px 30px; }
+        .card-hover { transition:transform .3s cubic-bezier(.175,.885,.32,1.275),box-shadow .3s; }
+        .card-hover:hover { transform:translateY(-10px) rotate(-2deg); box-shadow:0 20px 40px rgba(0,0,0,.15); }
+        .step-btn { transition:all .3s cubic-bezier(.175,.885,.32,1.275); }
+        .step-btn:hover { transform:translateY(-4px); }
+        .step-btn.active { transform:scale(1.06); box-shadow:0 8px 25px rgba(0,0,0,.15); }
+        .step-btn.done { opacity:.7; }
+        .step-btn.done .done-check { display:block; }
+        .done-check { display:none; }
+        .panel { display:none; animation:fadeIn .4s ease; }
+        .panel.active { display:block; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        #toast { visibility:hidden;min-width:250px;background:linear-gradient(135deg,#F59E0B,#EAB308);color:#fff;text-align:center;border-radius:999px;padding:14px 24px;position:fixed;z-index:50;left:50%;bottom:30px;transform:translateX(-50%);font-size:1.1rem;box-shadow:0 10px 30px rgba(245,158,11,.3);opacity:0;transition:opacity .3s,bottom .3s; }
+        #toast.show { visibility:visible;opacity:1;bottom:50px; }
+        @media print { body{background:white!important;background-image:none!important} .no-print{display:none!important} .shadow-md,.shadow-lg{box-shadow:none!important} }
+    </style>
+</head>
+<body class="text-gray-800 pb-20 p-4 md:p-8">
+<!-- Nav -->
+<nav class="max-w-4xl mx-auto flex flex-wrap items-center justify-between mb-6 no-print">
+    <a href="../" class="text-yellow-600 font-bold text-lg hover:text-yellow-700"><i class="fa-solid fa-arrow-left mr-1"></i> 메인으로</a>
+    <div class="flex gap-2">
+        <button onclick="window.print()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-full text-sm font-bold"><i class="fa-solid fa-print mr-1"></i>인쇄</button>
+        <button onclick="resetAll()" class="bg-red-100 hover:bg-red-200 text-red-600 px-4 py-2 rounded-full text-sm font-bold"><i class="fa-solid fa-rotate-left mr-1"></i>초기화</button>
+    </div>
+</nav>
+<!-- Header -->
+<header class="text-center mb-8">
+    <div class="inline-block bg-white px-6 py-3 rounded-full shadow-md border-4 border-yellow-200 mb-3">
+        <p class="text-lg text-yellow-500">1~3차시 · 첫 번째 의뢰</p>
+    </div>
+    <h1 class="text-3xl md:text-4xl font-bold text-yellow-600 mb-2"><i class="fa-solid fa-rocket mr-2"></i>스타트업 창업과 첫 번째 의뢰</h1>
+    <p class="text-lg text-gray-500 max-w-2xl mx-auto">AI 건강지킴이 로봇 스타트업을 창업하고<br>로봇의 구조를 이해하여 첫 번째 의뢰를 해결해요!</p>
+</header>
+<!-- Step Navigation -->
+<div class="max-w-4xl mx-auto mb-10 no-print">
+    <div class="grid grid-cols-5 gap-3">
+        <button onclick="goStep(1)" id="step1btn" class="step-btn active bg-white rounded-2xl p-3 shadow-md border-b-4 border-yellow-400 text-center relative">
+            <div class="done-check absolute top-2 right-2 text-green-500"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="text-2xl text-yellow-500 mb-1"><i class="fa-solid fa-building"></i></div>
+            <h3 class="text-sm font-bold text-yellow-600">활동 1</h3>
+            <p class="text-xs text-gray-500">창업 기획서</p>
+        </button>
+        <button onclick="goStep(2)" id="step2btn" class="step-btn bg-white rounded-2xl p-3 shadow-md border-b-4 border-blue-400 text-center relative">
+            <div class="done-check absolute top-2 right-2 text-green-500"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="text-2xl text-blue-500 mb-1"><i class="fa-solid fa-eye"></i></div>
+            <h3 class="text-sm font-bold text-blue-600">활동 2</h3>
+            <p class="text-xs text-gray-500">감각-센서 비교</p>
+        </button>
+        <button onclick="goStep(3)" id="step3btn" class="step-btn bg-white rounded-2xl p-3 shadow-md border-b-4 border-green-400 text-center relative">
+            <div class="done-check absolute top-2 right-2 text-green-500"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="text-2xl text-green-500 mb-1"><i class="fa-solid fa-people-arrows"></i></div>
+            <h3 class="text-sm font-bold text-green-600">활동 3</h3>
+            <p class="text-xs text-gray-500">블라인드봇</p>
+        </button>
+        <button onclick="goStep(4)" id="step4btn" class="step-btn bg-white rounded-2xl p-3 shadow-md border-b-4 border-orange-400 text-center relative">
+            <div class="done-check absolute top-2 right-2 text-green-500"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="text-2xl text-orange-500 mb-1"><i class="fa-solid fa-gauge-high"></i></div>
+            <h3 class="text-sm font-bold text-orange-600">활동 4</h3>
+            <p class="text-xs text-gray-500">센서값 기록</p>
+        </button>
+        <button onclick="goStep(5)" id="step5btn" class="step-btn bg-white rounded-2xl p-3 shadow-md border-b-4 border-pink-400 text-center relative">
+            <div class="done-check absolute top-2 right-2 text-green-500"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="text-2xl text-pink-500 mb-1"><i class="fa-solid fa-gears"></i></div>
+            <h3 class="text-sm font-bold text-pink-600">활동 5</h3>
+            <p class="text-xs text-gray-500">환경 지킴이</p>
+        </button>
+    </div>
+</div>
+ 
+<main class="max-w-4xl mx-auto">
+<!-- ===== 활동 1: 스타트업 창업 기획서 ===== -->
+<div id="panel1" class="panel active">
+    <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-8 border-yellow-400 mb-6">
+        <h2 class="text-2xl font-bold text-yellow-600 mb-6"><i class="fa-solid fa-building mr-2"></i>스타트업 창업 기획서</h2>
+        <div class="space-y-5">
+            <div>
+                <label class="block text-lg font-bold text-gray-700 mb-2"><i class="fa-solid fa-tag mr-1 text-yellow-500"></i>회사 이름</label>
+                <input data-key="company" type="text" placeholder="예: 헬스봇 주식회사" class="w-full px-4 py-3 rounded-2xl border-2 border-yellow-200 focus:border-yellow-400 focus:bg-yellow-50 outline-none text-lg">
+            </div>
+            <div>
+                <label class="block text-lg font-bold text-gray-700 mb-2"><i class="fa-solid fa-bullhorn mr-1 text-yellow-500"></i>슬로건</label>
+                <input data-key="slogan" type="text" placeholder="예: 건강한 교실을 만드는 AI 로봇!" class="w-full px-4 py-3 rounded-2xl border-2 border-yellow-200 focus:border-yellow-400 focus:bg-yellow-50 outline-none text-lg">
+            </div>
+            <div>
+                <label class="block text-lg font-bold text-gray-700 mb-2"><i class="fa-solid fa-bullseye mr-1 text-yellow-500"></i>우리 회사의 목표</label>
+                <textarea data-key="goal" rows="3" placeholder="우리 회사가 이루고 싶은 목표를 적어보세요!" class="w-full px-4 py-3 rounded-2xl border-2 border-yellow-200 focus:border-yellow-400 focus:bg-yellow-50 outline-none text-lg resize-none"></textarea>
+            </div>
+            <div>
+                <label class="block text-lg font-bold text-gray-700 mb-3"><i class="fa-solid fa-users mr-1 text-yellow-500"></i>팀원 역할 분담표</label>
+                <div class="space-y-3">
+                    <div class="flex gap-3 items-center" id="member1"><input data-key="m1name" type="text" placeholder="이름" class="flex-1 px-3 py-2 rounded-xl border-2 border-yellow-200 focus:border-yellow-400 outline-none"><select data-key="m1role" class="px-3 py-2 rounded-xl border-2 border-yellow-200 focus:border-yellow-400 outline-none bg-white"><option value="">역할 선택</option><option>리더</option><option>AI 개발자</option><option>코더</option><option>디자이너</option><option>테스터</option></select></div>
+                    <div class="flex gap-3 items-center"><input data-key="m2name" type="text" placeholder="이름" class="flex-1 px-3 py-2 rounded-xl border-2 border-yellow-200 focus:border-yellow-400 outline-none"><select data-key="m2role" class="px-3 py-2 rounded-xl border-2 border-yellow-200 focus:border-yellow-400 outline-none bg-white"><option value="">역할 선택</option><option>리더</option><option>AI 개발자</option><option>코더</option><option>디자이너</option><option>테스터</option></select></div>
+                    <div class="flex gap-3 items-center"><input data-key="m3name" type="text" placeholder="이름" class="flex-1 px-3 py-2 rounded-xl border-2 border-yellow-200 focus:border-yellow-400 outline-none"><select data-key="m3role" class="px-3 py-2 rounded-xl border-2 border-yellow-200 focus:border-yellow-400 outline-none bg-white"><option value="">역할 선택</option><option>리더</option><option>AI 개발자</option><option>코더</option><option>디자이너</option><option>테스터</option></select></div>
+                    <div class="flex gap-3 items-center"><input data-key="m4name" type="text" placeholder="이름" class="flex-1 px-3 py-2 rounded-xl border-2 border-yellow-200 focus:border-yellow-400 outline-none"><select data-key="m4role" class="px-3 py-2 rounded-xl border-2 border-yellow-200 focus:border-yellow-400 outline-none bg-white"><option value="">역할 선택</option><option>리더</option><option>AI 개발자</option><option>코더</option><option>디자이너</option><option>테스터</option></select></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="text-center no-print"><button onclick="completeStep(1);goStep(2)" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition">활동 2로 이동 <i class="fa-solid fa-arrow-right ml-2"></i></button></div>
+</div>
+ 
+<!-- ===== 활동 2: 감각기관-센서 비교표 ===== -->
+<div id="panel2" class="panel">
+    <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-8 border-blue-400 mb-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-6"><i class="fa-solid fa-eye mr-2"></i>감각기관과 센서 비교표</h2>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm md:text-base">
+                <thead><tr class="bg-blue-50"><th class="py-3 px-3 text-blue-700 rounded-tl-xl">사람의 감각</th><th class="py-3 px-3 text-blue-700">하는 일</th><th class="py-3 px-3 text-blue-700">로봇 센서</th><th class="py-3 px-3 text-blue-700 rounded-tr-xl">하는 일</th></tr></thead>
+                <tbody>
+                    <tr class="border-t border-blue-100"><td class="py-3 px-3 font-bold text-center">눈 <i class="fa-solid fa-eye text-blue-400"></i></td><td class="py-3 px-3"><input data-key="sense1" type="text" placeholder="빈칸" class="w-full px-2 py-1 rounded-lg border-2 border-blue-200 focus:border-blue-400 outline-none text-sm"></td><td class="py-3 px-3 font-bold text-center">카메라 <i class="fa-solid fa-camera text-blue-400"></i></td><td class="py-3 px-3"><input data-key="sensor1" type="text" placeholder="빈칸" class="w-full px-2 py-1 rounded-lg border-2 border-blue-200 focus:border-blue-400 outline-none text-sm"></td></tr>
+                    <tr class="border-t border-blue-100"><td class="py-3 px-3 font-bold text-center">귀 <i class="fa-solid fa-ear-listen text-green-400"></i></td><td class="py-3 px-3"><input data-key="sense2" type="text" placeholder="빈칸" class="w-full px-2 py-1 rounded-lg border-2 border-blue-200 focus:border-blue-400 outline-none text-sm"></td><td class="py-3 px-3 font-bold text-center">마이크 <i class="fa-solid fa-microphone text-green-400"></i></td><td class="py-3 px-3"><input data-key="sensor2" type="text" placeholder="빈칸" class="w-full px-2 py-1 rounded-lg border-2 border-blue-200 focus:border-blue-400 outline-none text-sm"></td></tr>
+                    <tr class="border-t border-blue-100"><td class="py-3 px-3 font-bold text-center">피부 <i class="fa-solid fa-hand text-pink-400"></i></td><td class="py-3 px-3"><input data-key="sense3" type="text" placeholder="빈칸" class="w-full px-2 py-1 rounded-lg border-2 border-blue-200 focus:border-blue-400 outline-none text-sm"></td><td class="py-3 px-3 font-bold text-center">초음파 센서 <i class="fa-solid fa-satellite-dish text-pink-400"></i></td><td class="py-3 px-3"><input data-key="sensor3" type="text" placeholder="빈칸" class="w-full px-2 py-1 rounded-lg border-2 border-blue-200 focus:border-blue-400 outline-none text-sm"></td></tr>
+                    <tr class="border-t border-blue-100"><td class="py-3 px-3"><input data-key="sense4name" type="text" placeholder="감각 이름" class="w-full px-2 py-1 rounded-lg border-2 border-blue-200 focus:border-blue-400 outline-none text-sm"></td><td class="py-3 px-3"><input data-key="sense4" type="text" placeholder="빈칸" class="w-full px-2 py-1 rounded-lg border-2 border-blue-200 focus:border-blue-400 outline-none text-sm"></td><td class="py-3 px-3 font-bold text-center">빛센서 <i class="fa-solid fa-sun text-orange-400"></i></td><td class="py-3 px-3"><input data-key="sensor4" type="text" placeholder="빈칸" class="w-full px-2 py-1 rounded-lg border-2 border-blue-200 focus:border-blue-400 outline-none text-sm"></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <!-- 엔트리 바로가기 -->
+    <div class="text-center mb-6 no-print"><a href="https://playentry.org/" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-green-400 to-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition"><i class="fa-solid fa-code"></i>엔트리 바로가기<i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a></div>
+    <div class="text-center no-print flex justify-center gap-3">
+        <button onclick="goStep(1)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-full text-lg transition"><i class="fa-solid fa-arrow-left mr-1"></i>활동 1</button>
+        <button onclick="completeStep(2);goStep(3)" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition">활동 3으로 <i class="fa-solid fa-arrow-right ml-1"></i></button>
+    </div>
+</div>
+ 
+<!-- ===== 활동 3: 블라인드봇 역할 카드 ===== -->
+<div id="panel3" class="panel">
+    <section class="mb-8">
+        <h2 class="text-2xl font-bold text-green-600 mb-6"><i class="fa-solid fa-people-arrows mr-2"></i>블라인드봇 역할 카드</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="bg-white rounded-2xl p-5 shadow-md border-l-8 border-yellow-400">
+                <h3 class="text-xl font-bold text-yellow-600 mb-2"><i class="fa-solid fa-brain mr-1"></i>프로세서</h3>
+                <p class="text-sm text-gray-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i>위치: 가운데 (눈가림)</p>
+                <p class="text-gray-700">센서들의 신호를 받고 어디로 갈지 판단하기</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 shadow-md border-l-8 border-blue-400">
+                <h3 class="text-xl font-bold text-blue-600 mb-2"><i class="fa-solid fa-satellite-dish mr-1"></i>센서(좌)</h3>
+                <p class="text-sm text-gray-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i>위치: 프로세서 왼쪽</p>
+                <p class="text-gray-700">왼쪽에 장애물이 있으면 왼쪽 어깨 탭하기</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 shadow-md border-l-8 border-green-400">
+                <h3 class="text-xl font-bold text-green-600 mb-2"><i class="fa-solid fa-satellite-dish mr-1"></i>센서(우)</h3>
+                <p class="text-sm text-gray-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i>위치: 프로세서 오른쪽</p>
+                <p class="text-gray-700">오른쪽에 장애물이 있으면 오른쪽 어깨 탭하기</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 shadow-md border-l-8 border-pink-400">
+                <h3 class="text-xl font-bold text-pink-600 mb-2"><i class="fa-solid fa-ruler mr-1"></i>전면 센서</h3>
+                <p class="text-sm text-gray-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i>위치: 프로세서 뒤쪽</p>
+                <p class="text-gray-700">앞에 있는 장애물까지의 거리를 숫자로 말하기</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 shadow-md border-b-8 border-green-400">
+            <h3 class="text-lg font-bold text-green-600 mb-3"><i class="fa-solid fa-pencil mr-1"></i>센서 → 프로세서 → 모터 관계를 정리해보세요!</h3>
+            <textarea data-key="blindbot" rows="4" placeholder="블라인드봇 활동을 하면서 알게 된 점, 센서-프로세서-모터의 관계를 그림이나 글로 설명해보세요!" class="w-full px-4 py-3 rounded-xl border-2 border-green-200 focus:border-green-400 focus:bg-green-50 outline-none text-base resize-none"></textarea>
+        </div>
+    </section>
+    <div class="text-center no-print flex justify-center gap-3">
+        <button onclick="goStep(2)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-full text-lg transition"><i class="fa-solid fa-arrow-left mr-1"></i>활동 2</button>
+        <button onclick="completeStep(3);goStep(4)" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition">활동 4로 <i class="fa-solid fa-arrow-right ml-1"></i></button>
+    </div>
+</div>
+ 
+<!-- ===== 활동 4: 센서값 기록표 ===== -->
+<div id="panel4" class="panel">
+    <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-8 border-orange-400 mb-6">
+        <h2 class="text-2xl font-bold text-orange-600 mb-6"><i class="fa-solid fa-gauge-high mr-2"></i>센서값 기록표</h2>
+        <p class="text-gray-500 mb-4">손을 각 거리에 놓고 센서값을 관찰하여 기록해보세요!</p>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm md:text-base">
+                <thead><tr class="bg-orange-50"><th class="py-3 px-3 text-orange-700 rounded-tl-xl">거리</th><th class="py-3 px-3 text-orange-700">초음파 센서값</th><th class="py-3 px-3 text-orange-700">LED 색</th><th class="py-3 px-3 text-orange-700 rounded-tr-xl">서보모터 동작</th></tr></thead>
+                <tbody>
+                    <tr class="border-t border-orange-100"><td class="py-3 px-3 font-bold text-center text-orange-600">5cm</td><td class="py-3 px-3"><input data-key="sv5" type="text" placeholder="센서값" class="w-full px-2 py-1 rounded-lg border-2 border-orange-200 focus:border-orange-400 outline-none text-sm text-center"></td><td class="py-3 px-3"><input data-key="led5" type="text" placeholder="LED 색" class="w-full px-2 py-1 rounded-lg border-2 border-orange-200 focus:border-orange-400 outline-none text-sm text-center"></td><td class="py-3 px-3"><input data-key="servo5" type="text" placeholder="동작" class="w-full px-2 py-1 rounded-lg border-2 border-orange-200 focus:border-orange-400 outline-none text-sm text-center"></td></tr>
+                    <tr class="border-t border-orange-100"><td class="py-3 px-3 font-bold text-center text-orange-600">10cm</td><td class="py-3 px-3"><input data-key="sv10" type="text" placeholder="센서값" class="w-full px-2 py-1 rounded-lg border-2 border-orange-200 focus:border-orange-400 outline-none text-sm text-center"></td><td class="py-3 px-3"><input data-key="led10" type="text" placeholder="LED 색" class="w-full px-2 py-1 rounded-lg border-2 border-orange-200 focus:border-orange-400 outline-none text-sm text-center"></td><td class="py-3 px-3"><input data-key="servo10" type="text" placeholder="동작" class="w-full px-2 py-1 rounded-lg border-2 border-orange-200 focus:border-orange-400 outline-none text-sm text-center"></td></tr>
+                    <tr class="border-t border-orange-100"><td class="py-3 px-3 font-bold text-center text-orange-600">20cm</td><td class="py-3 px-3"><input data-key="sv20" type="text" placeholder="센서값" class="w-full px-2 py-1 rounded-lg border-2 border-orange-200 focus:border-orange-400 outline-none text-sm text-center"></td><td class="py-3 px-3"><input data-key="led20" type="text" placeholder="LED 색" class="w-full px-2 py-1 rounded-lg border-2 border-orange-200 focus:border-orange-400 outline-none text-sm text-center"></td><td class="py-3 px-3"><input data-key="servo20" type="text" placeholder="동작" class="w-full px-2 py-1 rounded-lg border-2 border-orange-200 focus:border-orange-400 outline-none text-sm text-center"></td></tr>
+                    <tr class="border-t border-orange-100"><td class="py-3 px-3 font-bold text-center text-orange-600">30cm</td><td class="py-3 px-3"><input data-key="sv30" type="text" placeholder="센서값" class="w-full px-2 py-1 rounded-lg border-2 border-orange-200 focus:border-orange-400 outline-none text-sm text-center"></td><td class="py-3 px-3"><input data-key="led30" type="text" placeholder="LED 색" class="w-full px-2 py-1 rounded-lg border-2 border-orange-200 focus:border-orange-400 outline-none text-sm text-center"></td><td class="py-3 px-3"><input data-key="servo30" type="text" placeholder="동작" class="w-full px-2 py-1 rounded-lg border-2 border-orange-200 focus:border-orange-400 outline-none text-sm text-center"></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <div class="text-center mb-6 no-print"><a href="https://playentry.org/" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-green-400 to-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition"><i class="fa-solid fa-code"></i>엔트리 바로가기<i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a></div>
+    <div class="text-center no-print flex justify-center gap-3">
+        <button onclick="goStep(3)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-full text-lg transition"><i class="fa-solid fa-arrow-left mr-1"></i>활동 3</button>
+        <button onclick="completeStep(4);goStep(5)" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition">활동 5로 <i class="fa-solid fa-arrow-right ml-1"></i></button>
+    </div>
+</div>
+ 
+<!-- ===== 활동 5: 교실 환경 지킴이 설계서 ===== -->
+<div id="panel5" class="panel">
+    <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-8 border-pink-400 mb-6">
+        <h2 class="text-2xl font-bold text-pink-600 mb-2"><i class="fa-solid fa-gears mr-2"></i>교실 환경 지킴이 설계서</h2>
+        <p class="text-gray-500 mb-6">센서와 출력 장치를 조합하여 교실 환경 지킴이를 설계해보세요!</p>
+        <div class="space-y-4">
+            <div class="bg-pink-50 rounded-xl p-4" id="cond1">
+                <p class="font-bold text-pink-600 mb-3">조건 1</p>
+                <div class="flex flex-wrap gap-2 items-center">
+                    <select data-key="c1sensor" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">센서</option><option>초음파</option><option>빛</option><option>소리</option></select>
+                    <span class="text-gray-600">값이</span>
+                    <select data-key="c1comp" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">비교</option><option>이상</option><option>이하</option></select>
+                    <input data-key="c1val" type="number" placeholder="숫자" class="w-20 px-3 py-2 rounded-xl border-2 border-pink-200 outline-none text-center">
+                    <span class="text-gray-600">이면 →</span>
+                    <select data-key="c1out" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">출력</option><option>LED</option><option>서보모터</option><option>DC모터</option><option>부저</option></select>
+                    <input data-key="c1act" type="text" placeholder="동작" class="flex-1 min-w-[120px] px-3 py-2 rounded-xl border-2 border-pink-200 outline-none">
+                </div>
+            </div>
+            <div class="bg-pink-50 rounded-xl p-4">
+                <p class="font-bold text-pink-600 mb-3">조건 2</p>
+                <div class="flex flex-wrap gap-2 items-center">
+                    <select data-key="c2sensor" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">센서</option><option>초음파</option><option>빛</option><option>소리</option></select>
+                    <span class="text-gray-600">값이</span>
+                    <select data-key="c2comp" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">비교</option><option>이상</option><option>이하</option></select>
+                    <input data-key="c2val" type="number" placeholder="숫자" class="w-20 px-3 py-2 rounded-xl border-2 border-pink-200 outline-none text-center">
+                    <span class="text-gray-600">이면 →</span>
+                    <select data-key="c2out" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">출력</option><option>LED</option><option>서보모터</option><option>DC모터</option><option>부저</option></select>
+                    <input data-key="c2act" type="text" placeholder="동작" class="flex-1 min-w-[120px] px-3 py-2 rounded-xl border-2 border-pink-200 outline-none">
+                </div>
+            </div>
+            <div class="bg-pink-50 rounded-xl p-4">
+                <p class="font-bold text-pink-600 mb-3">조건 3</p>
+                <div class="flex flex-wrap gap-2 items-center">
+                    <select data-key="c3sensor" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">센서</option><option>초음파</option><option>빛</option><option>소리</option></select>
+                    <span class="text-gray-600">값이</span>
+                    <select data-key="c3comp" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">비교</option><option>이상</option><option>이하</option></select>
+                    <input data-key="c3val" type="number" placeholder="숫자" class="w-20 px-3 py-2 rounded-xl border-2 border-pink-200 outline-none text-center">
+                    <span class="text-gray-600">이면 →</span>
+                    <select data-key="c3out" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">출력</option><option>LED</option><option>서보모터</option><option>DC모터</option><option>부저</option></select>
+                    <input data-key="c3act" type="text" placeholder="동작" class="flex-1 min-w-[120px] px-3 py-2 rounded-xl border-2 border-pink-200 outline-none">
+                </div>
+            </div>
+        </div>
+        <div class="mt-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-4 border-2 border-dashed border-pink-300">
+            <label class="block font-bold text-pink-600 mb-2"><i class="fa-solid fa-star mr-1"></i>우리 팀의 교실 환경 지킴이 규칙 한 줄 정리!</label>
+            <input data-key="rule" type="text" placeholder="예: 어둡고 조용하면 선풍기를 켜고, 사람이 오면 멈춘다!" class="w-full px-4 py-3 rounded-xl border-2 border-pink-200 focus:border-pink-400 focus:bg-pink-50 outline-none text-lg">
+        </div>
+    </section>
+    <div class="text-center mb-6 no-print"><a href="https://playentry.org/" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-green-400 to-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition"><i class="fa-solid fa-code"></i>엔트리 바로가기<i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a></div>
+    <div class="text-center no-print flex justify-center gap-3">
+        <button onclick="goStep(4)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-full text-lg transition"><i class="fa-solid fa-arrow-left mr-1"></i>활동 4</button>
+        <button onclick="completeStep(5);showToast('1~3차시 활동을 모두 완료했어요!')" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition"><i class="fa-solid fa-flag-checkered mr-1"></i>모두 완료!</button>
+    </div>
+</div>
+</main>
+ 
+<div id="toast"></div>
+<script>
+const PREFIX='session13_';
+function goStep(n){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel'+n).classList.add('active');document.querySelectorAll('.step-btn').forEach(b=>b.classList.remove('active'));document.getElementById('step'+n+'btn').classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function completeStep(n){document.getElementById('step'+n+'btn').classList.add('done');showToast('활동 '+n+' 완료!')}
+function showToast(m){const t=document.getElementById('toast');t.innerText=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
+function saveAll(){document.querySelectorAll('[data-key]').forEach(el=>{const v=el.tagName==='SELECT'?el.value:el.value;localStorage.setItem(PREFIX+el.dataset.key,v)})}
+function loadAll(){document.querySelectorAll('[data-key]').forEach(el=>{const v=localStorage.getItem(PREFIX+el.dataset.key);if(v!==null)el.value=v})}
+function resetAll(){if(!confirm('모든 입력을 초기화할까요?'))return;document.querySelectorAll('[data-key]').forEach(el=>{el.value='';localStorage.removeItem(PREFIX+el.dataset.key)});showToast('초기화 완료!')}
+document.addEventListener('DOMContentLoaded',()=>{loadAll();document.querySelectorAll('[data-key]').forEach(el=>{el.addEventListener('input',saveAll);el.addEventListener('change',saveAll)})});
+</script>
+</body>
+</html>
