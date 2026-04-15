@@ -10,9 +10,7 @@
     <style>
         body {
             font-family: 'Jua', sans-serif;
-            background-color: #D8D8DC;
-            background-image: radial-gradient(#C8C8CC 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-color: #ffffff;
         }
         .card-hover {
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
@@ -151,19 +149,9 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* 입력 필드만 흰색, 나머지 배경은 모두 회색 */
-        .bg-white, .bg-yellow-50, .bg-blue-50, .bg-green-50, .bg-orange-50, .bg-pink-50,
-        .bg-purple-50, .bg-indigo-50, .from-pink-50, .from-yellow-50, .from-blue-50 {
-            background-color: #E4E4E8 !important;
-            background-image: none !important;
-        }
         input[type="text"], input[type="number"], textarea, select {
             background-color: #ffffff !important;
         }
-        /* 회색 배경에서 연한 글자 강화 */
-        .text-gray-400 { color: #4B5563 !important; }
-        .text-gray-500 { color: #1F2937 !important; }
-        .text-gray-600 { color: #111827 !important; }
 
         /* Print */
         @media print {

@@ -10,18 +10,16 @@
     <style>
         body {
             font-family: 'Jua', sans-serif;
-            background-color: #D8D8DC;
-            background-image: radial-gradient(#C8C8CC 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-color: #ffffff;
         }
         .card-hover {
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
             border: 1px solid #E5E5E5;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.13), 0 2px 6px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 2px 6px rgba(0,0,0,0.05);
         }
         .card-hover:hover {
             transform: translateY(-10px) rotate(-2deg);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             cursor: pointer;
         }
         @keyframes bounce-slow {
@@ -39,21 +37,11 @@
             position: absolute; top: -10px; right: -10px;
             padding: 4px 14px; border-radius: 999px;
             font-size: 0.85rem; font-weight: bold; color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-        /* 입력 필드만 흰색, 나머지 배경은 모두 회색 */
-        .bg-white, .bg-yellow-50, .bg-blue-50, .bg-green-50, .bg-orange-50, .bg-pink-50,
-        .bg-purple-50, .bg-indigo-50, .from-pink-50, .from-yellow-50, .from-blue-50 {
-            background-color: #E4E4E8 !important;
-            background-image: none !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         input[type="text"], input[type="number"], textarea, select {
             background-color: #ffffff !important;
         }
-        /* 회색 배경에서 연한 글자 강화 */
-        .text-gray-400 { color: #4B5563 !important; }
-        .text-gray-500 { color: #1F2937 !important; }
-        .text-gray-600 { color: #111827 !important; }
         @media print {
             body { background: white !important; background-image: none !important; }
             .card-hover { box-shadow: none !important; transform: none !important; }
