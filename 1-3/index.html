@@ -23,13 +23,18 @@
         #toast { visibility:hidden;min-width:250px;background:linear-gradient(135deg,#F59E0B,#EAB308);color:#fff;text-align:center;border-radius:999px;padding:14px 24px;position:fixed;z-index:50;left:50%;bottom:30px;transform:translateX(-50%);font-size:1.1rem;box-shadow:0 10px 30px rgba(245,158,11,.3);opacity:0;transition:opacity .3s,bottom .3s; }
         #toast.show { visibility:visible;opacity:1;bottom:50px; }
         /* 입력 필드만 흰색, 나머지 배경은 모두 회색 */
-        .bg-white, .bg-yellow-50, .bg-blue-50, .bg-green-50, .bg-orange-50, .bg-pink-50, .from-pink-50 {
+        .bg-white, .bg-yellow-50, .bg-blue-50, .bg-green-50, .bg-orange-50, .bg-pink-50,
+        .bg-purple-50, .bg-indigo-50, .from-pink-50, .from-yellow-50, .from-blue-50 {
             background-color: #E4E4E8 !important;
             background-image: none !important;
         }
         input[type="text"], input[type="number"], textarea, select {
             background-color: #ffffff !important;
         }
+        /* 회색 배경에서 연한 글자 강화 */
+        .text-gray-400 { color: #4B5563 !important; }
+        .text-gray-500 { color: #1F2937 !important; }
+        .text-gray-600 { color: #111827 !important; }
         @media print { body{background:white!important;background-image:none!important} .no-print{display:none!important} .shadow-md,.shadow-lg{box-shadow:none!important} }
     </style>
 </head>
