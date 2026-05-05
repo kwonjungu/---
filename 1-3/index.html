@@ -338,26 +338,45 @@
     <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-8 border-pink-400 mb-6">
         <h2 class="text-2xl font-bold text-pink-600 mb-2"><i class="fa-solid fa-gears mr-2"></i>교실 환경 지킴이 설계서</h2>
         <p class="text-gray-500 mb-6">센서와 출력 장치를 조합하여 교실 환경 지킴이를 설계해보세요!</p>
-        <div class="space-y-4">
-            <div class="bg-pink-50 rounded-xl p-4 border-2 border-pink-200" id="cond1">
-                <p class="font-bold text-pink-600 mb-1"><i class="fa-solid fa-circle-check mr-1"></i>조건 1 · 이면 <span class="text-sm font-normal text-gray-500">(만약 ~ 이면)</span></p>
-                <div class="flex flex-wrap gap-2 items-center mt-3">
+        <div class="space-y-5">
+            <div class="bg-pink-50 rounded-2xl p-5 border-2 border-pink-200" id="cond1">
+                <p class="font-bold text-pink-600 mb-3 text-lg"><i class="fa-solid fa-1 mr-1"></i>조건 1</p>
+                <div class="flex flex-wrap gap-2 items-center mb-3">
                     <span class="text-pink-600 font-bold">만약</span>
                     <select data-key="c1sensor" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">센서</option><option>초음파</option><option>빛</option><option>소리</option></select>
                     <span class="text-gray-600">값이</span>
                     <select data-key="c1comp" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">비교</option><option>이상</option><option>이하</option></select>
                     <input data-key="c1val" type="number" placeholder="숫자" class="w-20 px-3 py-2 rounded-xl border-2 border-pink-200 outline-none text-center">
-                    <span class="text-gray-600">이면 →</span>
+                </div>
+                <div class="flex flex-wrap gap-2 items-center mb-2 pl-4 border-l-4 border-green-300">
+                    <span class="text-green-700 font-bold"><i class="fa-solid fa-check mr-1"></i>이면 →</span>
                     <select data-key="c1out" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">출력</option><option>LED</option><option>서보모터</option><option>DC모터</option><option>부저</option></select>
                     <input data-key="c1act" type="text" placeholder="동작" class="flex-1 min-w-[120px] px-3 py-2 rounded-xl border-2 border-pink-200 outline-none">
                 </div>
+                <div class="flex flex-wrap gap-2 items-center pl-4 border-l-4 border-gray-300">
+                    <span class="text-gray-700 font-bold"><i class="fa-solid fa-xmark mr-1"></i>아니면 →</span>
+                    <select data-key="c1elseOut" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">출력</option><option>LED</option><option>서보모터</option><option>DC모터</option><option>부저</option></select>
+                    <input data-key="c1elseAct" type="text" placeholder="동작" class="flex-1 min-w-[120px] px-3 py-2 rounded-xl border-2 border-pink-200 outline-none">
+                </div>
             </div>
-            <div class="bg-pink-50 rounded-xl p-4 border-2 border-pink-200">
-                <p class="font-bold text-pink-600 mb-1"><i class="fa-solid fa-arrow-turn-down mr-1"></i>조건 2 · 아니면 <span class="text-sm font-normal text-gray-500">(그 외)</span></p>
-                <div class="flex flex-wrap gap-2 items-center mt-3">
-                    <span class="text-pink-600 font-bold">아니면 →</span>
+            <div class="bg-pink-50 rounded-2xl p-5 border-2 border-pink-200">
+                <p class="font-bold text-pink-600 mb-3 text-lg"><i class="fa-solid fa-2 mr-1"></i>조건 2</p>
+                <div class="flex flex-wrap gap-2 items-center mb-3">
+                    <span class="text-pink-600 font-bold">만약</span>
+                    <select data-key="c2sensor" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">센서</option><option>초음파</option><option>빛</option><option>소리</option></select>
+                    <span class="text-gray-600">값이</span>
+                    <select data-key="c2comp" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">비교</option><option>이상</option><option>이하</option></select>
+                    <input data-key="c2val" type="number" placeholder="숫자" class="w-20 px-3 py-2 rounded-xl border-2 border-pink-200 outline-none text-center">
+                </div>
+                <div class="flex flex-wrap gap-2 items-center mb-2 pl-4 border-l-4 border-green-300">
+                    <span class="text-green-700 font-bold"><i class="fa-solid fa-check mr-1"></i>이면 →</span>
                     <select data-key="c2out" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">출력</option><option>LED</option><option>서보모터</option><option>DC모터</option><option>부저</option></select>
                     <input data-key="c2act" type="text" placeholder="동작" class="flex-1 min-w-[120px] px-3 py-2 rounded-xl border-2 border-pink-200 outline-none">
+                </div>
+                <div class="flex flex-wrap gap-2 items-center pl-4 border-l-4 border-gray-300">
+                    <span class="text-gray-700 font-bold"><i class="fa-solid fa-xmark mr-1"></i>아니면 →</span>
+                    <select data-key="c2elseOut" class="px-3 py-2 rounded-xl border-2 border-pink-200 outline-none bg-white"><option value="">출력</option><option>LED</option><option>서보모터</option><option>DC모터</option><option>부저</option></select>
+                    <input data-key="c2elseAct" type="text" placeholder="동작" class="flex-1 min-w-[120px] px-3 py-2 rounded-xl border-2 border-pink-200 outline-none">
                 </div>
             </div>
         </div>
