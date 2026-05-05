@@ -446,23 +446,23 @@
                         <tbody class="bg-pink-50/40">
                             <tr class="border-b border-pink-100">
                                 <td class="font-bold text-pink-700 text-base whitespace-nowrap"><i class="fa-solid fa-user-graduate mr-1 text-pink-400"></i> 누가 학습시키나?</td>
-                                <td><textarea class="input-field bg-pink-100 text-pink-800 font-bold cursor-not-allowed" rows="2" readonly title="정답">사용자(나)가 직접 사진을 찍어서 학습시켜요</textarea></td>
-                                <td><textarea class="input-field bg-pink-100 text-pink-800 font-bold cursor-not-allowed" rows="2" readonly title="정답">엔트리에서 미리 학습해 둔 모델을 그대로 사용해요</textarea></td>
+                                <td><textarea class="input-field input-pink" rows="2" placeholder="이미지 분류는..." data-key="session46_a3_img_0"></textarea></td>
+                                <td><textarea class="input-field input-pink" rows="2" placeholder="비디오 감지는..." data-key="session46_a3_vid_0"></textarea></td>
                             </tr>
                             <tr class="border-b border-pink-100">
                                 <td class="font-bold text-pink-700 text-base whitespace-nowrap"><i class="fa-solid fa-eye mr-1 text-pink-400"></i> 무엇을 인식하나?</td>
-                                <td><textarea class="input-field bg-pink-100 text-pink-800 font-bold cursor-not-allowed" rows="2" readonly title="정답">정지된 사진 속의 사물·동물 등 내가 학습시킨 클래스를 분류해요</textarea></td>
-                                <td><textarea class="input-field bg-pink-100 text-pink-800 font-bold cursor-not-allowed" rows="2" readonly title="정답">실시간 영상에서 사람의 얼굴·표정·손·자세 등을 자동으로 감지해요</textarea></td>
+                                <td><textarea class="input-field input-pink" rows="2" placeholder="이미지 분류는..." data-key="session46_a3_img_1"></textarea></td>
+                                <td><textarea class="input-field input-pink" rows="2" placeholder="비디오 감지는..." data-key="session46_a3_vid_1"></textarea></td>
                             </tr>
                             <tr class="border-b border-pink-100">
                                 <td class="font-bold text-pink-700 text-base whitespace-nowrap"><i class="fa-solid fa-thumbs-up mr-1 text-pink-400"></i> 장점</td>
-                                <td><textarea class="input-field bg-pink-100 text-pink-800 font-bold cursor-not-allowed" rows="2" readonly title="정답">내가 원하는 사물을 직접 학습시킬 수 있고, 새로운 종류도 추가할 수 있어요</textarea></td>
-                                <td><textarea class="input-field bg-pink-100 text-pink-800 font-bold cursor-not-allowed" rows="2" readonly title="정답">따로 학습하지 않아도 바로 쓸 수 있고, 실시간으로 빠르게 인식해요</textarea></td>
+                                <td><textarea class="input-field input-pink" rows="2" placeholder="장점을 적어보세요" data-key="session46_a3_img_2"></textarea></td>
+                                <td><textarea class="input-field input-pink" rows="2" placeholder="장점을 적어보세요" data-key="session46_a3_vid_2"></textarea></td>
                             </tr>
                             <tr>
                                 <td class="font-bold text-pink-700 text-base whitespace-nowrap"><i class="fa-solid fa-thumbs-down mr-1 text-pink-400"></i> 단점</td>
-                                <td><textarea class="input-field bg-pink-100 text-pink-800 font-bold cursor-not-allowed" rows="2" readonly title="정답">학습 사진을 직접 모아야 해서 시간이 걸리고, 조명·각도에 따라 정확도가 달라져요</textarea></td>
-                                <td><textarea class="input-field bg-pink-100 text-pink-800 font-bold cursor-not-allowed" rows="2" readonly title="정답">미리 정해진 종류만 인식할 수 있어서, 새로운 사물은 추가할 수 없어요</textarea></td>
+                                <td><textarea class="input-field input-pink" rows="2" placeholder="단점을 적어보세요" data-key="session46_a3_img_3"></textarea></td>
+                                <td><textarea class="input-field input-pink" rows="2" placeholder="단점을 적어보세요" data-key="session46_a3_vid_3"></textarea></td>
                             </tr>
                         </tbody>
                     </table>
@@ -555,7 +555,7 @@
                 </div>
 
                 <!-- Robot Name & Description -->
-                <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border-2 border-dashed border-orange-300">
+                <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border-2 border-dashed border-orange-300 mb-8">
                     <h3 class="text-xl font-bold text-orange-600 mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-robot text-2xl"></i> 우리 팀의 AI 음성 로봇
                     </h3>
@@ -571,6 +571,163 @@
                                 <i class="fa-solid fa-pen-fancy mr-1"></i> 한 줄 소개
                             </label>
                             <textarea class="input-field input-orange text-center" rows="2" placeholder="우리 로봇을 한 줄로 소개해 주세요!" data-key="session46_a4_robotdesc"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========== STT vs TTS 체험·비교 코너 ========== -->
+                <div class="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-6 border-2 border-purple-300 shadow-inner">
+                    <h3 class="text-xl md:text-2xl font-bold text-purple-700 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-headphones-simple text-2xl"></i> STT vs TTS 직접 체험하고 비교하기
+                    </h3>
+                    <p class="text-sm text-gray-600 mb-4">
+                        <i class="fa-solid fa-circle-info text-purple-400 mr-1"></i>
+                        브라우저에 내장된 <b>Web Speech API</b>(오픈 표준)를 사용해요. 마이크가 필요하니 권한을 허용해 주세요!
+                    </p>
+
+                    <!-- Sub Tabs -->
+                    <div class="flex gap-2 mb-4 border-b-2 border-purple-200">
+                        <button id="subTabTTS" onclick="switchSubTab('tts')" class="sub-tab-btn px-5 py-2.5 rounded-t-xl font-bold text-base bg-purple-500 text-white">
+                            <i class="fa-solid fa-volume-high mr-1"></i> TTS 체험 (글자 → 소리)
+                        </button>
+                        <button id="subTabSTT" onclick="switchSubTab('stt')" class="sub-tab-btn px-5 py-2.5 rounded-t-xl font-bold text-base bg-white text-purple-600 hover:bg-purple-100">
+                            <i class="fa-solid fa-microphone-lines mr-1"></i> STT 체험 (소리 → 글자)
+                        </button>
+                    </div>
+
+                    <!-- ========== TTS Panel ========== -->
+                    <div id="ttsPanel" class="space-y-4">
+                        <div class="bg-white rounded-xl p-4 border border-purple-200">
+                            <p class="text-purple-700 font-bold mb-2"><i class="fa-solid fa-lightbulb text-yellow-400 mr-1"></i> TTS(Text-To-Speech)</p>
+                            <p class="text-sm text-gray-600">글자를 입력하면 컴퓨터가 <b>소리로 읽어줘요</b>. 목소리·속도·높이를 바꿔보세요!</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-purple-700 font-bold mb-2"><i class="fa-solid fa-pen mr-1"></i> 읽어줄 문장</label>
+                            <textarea id="ttsText" class="input-field" rows="3" placeholder="예: 안녕하세요! 저는 AI 메디로봇이에요." data-key="session46_a4_tts_text">안녕하세요! 저는 우리 팀의 AI 음성 로봇이에요. 만나서 반가워요!</textarea>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-purple-700 font-bold mb-1"><i class="fa-solid fa-user mr-1"></i> 목소리</label>
+                                <select id="ttsVoice" class="input-field" data-key="session46_a4_tts_voice"></select>
+                            </div>
+                            <div>
+                                <label class="block text-purple-700 font-bold mb-1"><i class="fa-solid fa-gauge-high mr-1"></i> 빠르기</label>
+                                <select id="ttsRate" class="input-field" data-key="session46_a4_tts_rate">
+                                    <option value="0.5">🐢 아주 느리게 (0.5)</option>
+                                    <option value="0.75">🚶 느리게 (0.75)</option>
+                                    <option value="1" selected>🚀 보통 (1.0)</option>
+                                    <option value="1.5">🏃 빠르게 (1.5)</option>
+                                    <option value="2">⚡ 아주 빠르게 (2.0)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-purple-700 font-bold mb-1"><i class="fa-solid fa-music mr-1"></i> 목소리 높이</label>
+                                <select id="ttsPitch" class="input-field" data-key="session46_a4_tts_pitch">
+                                    <option value="0.5">🐻 낮은 목소리</option>
+                                    <option value="1" selected>😀 보통</option>
+                                    <option value="1.5">🐤 높은 목소리</option>
+                                    <option value="2">🦜 아주 높은 목소리</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3 justify-center pt-2">
+                            <button onclick="playTTS()" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold py-3 px-7 rounded-full shadow-lg hover:shadow-xl transform transition hover:scale-105 active:scale-95">
+                                <i class="fa-solid fa-play"></i> 재생
+                            </button>
+                            <button onclick="stopTTS()" class="inline-flex items-center gap-2 bg-white border-2 border-purple-400 text-purple-600 font-bold py-3 px-7 rounded-full shadow hover:bg-purple-50 transform transition hover:scale-105 active:scale-95">
+                                <i class="fa-solid fa-stop"></i> 정지
+                            </button>
+                        </div>
+
+                        <div id="ttsStatus" class="text-center text-sm text-purple-600 min-h-[1.5rem]"></div>
+                    </div>
+
+                    <!-- ========== STT Panel ========== -->
+                    <div id="sttPanel" class="space-y-4 hidden">
+                        <div class="bg-white rounded-xl p-4 border border-purple-200">
+                            <p class="text-purple-700 font-bold mb-2"><i class="fa-solid fa-lightbulb text-yellow-400 mr-1"></i> STT(Speech-To-Text)</p>
+                            <p class="text-sm text-gray-600">말한 내용을 컴퓨터가 듣고 <b>글자로 바꿔줘요</b>. 마이크에 또박또박 말해보세요!</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-purple-700 font-bold mb-1"><i class="fa-solid fa-globe mr-1"></i> 언어</label>
+                                <select id="sttLang" class="input-field" data-key="session46_a4_stt_lang">
+                                    <option value="ko-KR" selected>🇰🇷 한국어</option>
+                                    <option value="en-US">🇺🇸 영어 (English)</option>
+                                    <option value="ja-JP">🇯🇵 일본어</option>
+                                    <option value="zh-CN">🇨🇳 중국어</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-purple-700 font-bold mb-1"><i class="fa-solid fa-rotate mr-1"></i> 인식 모드</label>
+                                <select id="sttMode" class="input-field" data-key="session46_a4_stt_mode">
+                                    <option value="single" selected>📝 한 번 듣기</option>
+                                    <option value="continuous">♾️ 계속 듣기</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3 justify-center pt-2">
+                            <button id="sttStartBtn" onclick="startSTT()" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold py-3 px-7 rounded-full shadow-lg hover:shadow-xl transform transition hover:scale-105 active:scale-95">
+                                <i class="fa-solid fa-microphone"></i> 듣기 시작
+                            </button>
+                            <button id="sttStopBtn" onclick="stopSTT()" class="inline-flex items-center gap-2 bg-white border-2 border-red-400 text-red-500 font-bold py-3 px-7 rounded-full shadow hover:bg-red-50 transform transition hover:scale-105 active:scale-95" disabled>
+                                <i class="fa-solid fa-stop"></i> 듣기 중지
+                            </button>
+                            <button onclick="clearSTT()" class="inline-flex items-center gap-2 bg-white border-2 border-gray-300 text-gray-500 font-bold py-3 px-7 rounded-full shadow hover:bg-gray-50 transform transition hover:scale-105 active:scale-95">
+                                <i class="fa-solid fa-eraser"></i> 지우기
+                            </button>
+                        </div>
+
+                        <div id="sttStatus" class="text-center text-sm font-bold text-purple-600 min-h-[1.5rem]">🎤 마이크 권한을 허용한 뒤 '듣기 시작'을 눌러보세요</div>
+
+                        <div>
+                            <label class="block text-purple-700 font-bold mb-1"><i class="fa-solid fa-comment-dots mr-1"></i> 인식 결과</label>
+                            <div id="sttResult" class="input-field min-h-[100px] bg-purple-50 text-gray-700 leading-relaxed" style="white-space:pre-wrap;"></div>
+                        </div>
+                    </div>
+
+                    <!-- 비교표 -->
+                    <div class="mt-8">
+                        <h4 class="text-lg font-bold text-purple-700 mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-scale-balanced"></i> 직접 체험해보고 STT와 TTS를 비교해 봐요!
+                        </h4>
+                        <div class="overflow-x-auto">
+                            <table class="activity-table">
+                                <thead>
+                                    <tr class="bg-purple-500 text-white">
+                                        <th class="rounded-tl-xl">비교 항목</th>
+                                        <th><i class="fa-solid fa-volume-high mr-1"></i> TTS (글자→소리)</th>
+                                        <th class="rounded-tr-xl"><i class="fa-solid fa-microphone-lines mr-1"></i> STT (소리→글자)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white">
+                                    <tr class="border-b border-purple-100">
+                                        <td class="font-bold text-purple-700 whitespace-nowrap"><i class="fa-solid fa-arrows-left-right text-purple-400 mr-1"></i> 입력 → 출력</td>
+                                        <td><textarea class="input-field" rows="2" placeholder="예: 글자를 넣으면..." data-key="session46_a4_cmp_io_tts"></textarea></td>
+                                        <td><textarea class="input-field" rows="2" placeholder="예: 소리를 넣으면..." data-key="session46_a4_cmp_io_stt"></textarea></td>
+                                    </tr>
+                                    <tr class="border-b border-purple-100">
+                                        <td class="font-bold text-purple-700 whitespace-nowrap"><i class="fa-solid fa-puzzle-piece text-purple-400 mr-1"></i> 어디에 쓰일까?</td>
+                                        <td><textarea class="input-field" rows="2" placeholder="실생활 예시" data-key="session46_a4_cmp_use_tts"></textarea></td>
+                                        <td><textarea class="input-field" rows="2" placeholder="실생활 예시" data-key="session46_a4_cmp_use_stt"></textarea></td>
+                                    </tr>
+                                    <tr class="border-b border-purple-100">
+                                        <td class="font-bold text-purple-700 whitespace-nowrap"><i class="fa-solid fa-thumbs-up text-purple-400 mr-1"></i> 좋은 점</td>
+                                        <td><textarea class="input-field" rows="2" placeholder="장점을 적어보세요" data-key="session46_a4_cmp_pros_tts"></textarea></td>
+                                        <td><textarea class="input-field" rows="2" placeholder="장점을 적어보세요" data-key="session46_a4_cmp_pros_stt"></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold text-purple-700 whitespace-nowrap"><i class="fa-solid fa-triangle-exclamation text-purple-400 mr-1"></i> 어려운 점</td>
+                                        <td><textarea class="input-field" rows="2" placeholder="단점을 적어보세요" data-key="session46_a4_cmp_cons_tts"></textarea></td>
+                                        <td><textarea class="input-field" rows="2" placeholder="단점을 적어보세요" data-key="session46_a4_cmp_cons_stt"></textarea></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -686,6 +843,163 @@
                 return false;
             }
             return true;
+        }
+
+        // ========== STT vs TTS 체험 ==========
+        function switchSubTab(name) {
+            const ttsBtn = document.getElementById('subTabTTS');
+            const sttBtn = document.getElementById('subTabSTT');
+            const ttsPanel = document.getElementById('ttsPanel');
+            const sttPanel = document.getElementById('sttPanel');
+            if (name === 'tts') {
+                ttsBtn.classList.add('bg-purple-500', 'text-white');
+                ttsBtn.classList.remove('bg-white', 'text-purple-600', 'hover:bg-purple-100');
+                sttBtn.classList.remove('bg-purple-500', 'text-white');
+                sttBtn.classList.add('bg-white', 'text-purple-600', 'hover:bg-purple-100');
+                ttsPanel.classList.remove('hidden');
+                sttPanel.classList.add('hidden');
+            } else {
+                sttBtn.classList.add('bg-purple-500', 'text-white');
+                sttBtn.classList.remove('bg-white', 'text-purple-600', 'hover:bg-purple-100');
+                ttsBtn.classList.remove('bg-purple-500', 'text-white');
+                ttsBtn.classList.add('bg-white', 'text-purple-600', 'hover:bg-purple-100');
+                sttPanel.classList.remove('hidden');
+                ttsPanel.classList.add('hidden');
+            }
+        }
+
+        // ----- TTS -----
+        let ttsVoices = [];
+        function populateVoices() {
+            const sel = document.getElementById('ttsVoice');
+            if (!sel) return;
+            ttsVoices = window.speechSynthesis.getVoices();
+            const saved = localStorage.getItem('session46_a4_tts_voice');
+            sel.innerHTML = '';
+            if (ttsVoices.length === 0) {
+                const opt = document.createElement('option');
+                opt.value = '';
+                opt.textContent = '🎙️ 기본 목소리';
+                sel.appendChild(opt);
+                return;
+            }
+            // 한국어 목소리 우선
+            const koVoices = ttsVoices.filter(v => v.lang.startsWith('ko'));
+            const otherVoices = ttsVoices.filter(v => !v.lang.startsWith('ko'));
+            [...koVoices, ...otherVoices].forEach((v, i) => {
+                const opt = document.createElement('option');
+                opt.value = v.name;
+                const flag = v.lang.startsWith('ko') ? '🇰🇷' : v.lang.startsWith('en') ? '🇺🇸' : v.lang.startsWith('ja') ? '🇯🇵' : v.lang.startsWith('zh') ? '🇨🇳' : '🌐';
+                opt.textContent = `${flag} ${v.name} (${v.lang})`;
+                sel.appendChild(opt);
+            });
+            if (saved) sel.value = saved;
+        }
+
+        if ('speechSynthesis' in window) {
+            populateVoices();
+            window.speechSynthesis.onvoiceschanged = populateVoices;
+        }
+
+        function playTTS() {
+            const status = document.getElementById('ttsStatus');
+            if (!('speechSynthesis' in window)) {
+                status.textContent = '⚠️ 이 브라우저는 TTS를 지원하지 않아요.';
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const text = document.getElementById('ttsText').value.trim();
+            if (!text) {
+                status.textContent = '✏️ 읽어줄 문장을 입력해 주세요.';
+                return;
+            }
+            const u = new SpeechSynthesisUtterance(text);
+            u.rate = parseFloat(document.getElementById('ttsRate').value);
+            u.pitch = parseFloat(document.getElementById('ttsPitch').value);
+            const voiceName = document.getElementById('ttsVoice').value;
+            const voice = ttsVoices.find(v => v.name === voiceName);
+            if (voice) u.voice = voice;
+            u.onstart = () => { status.textContent = '🔊 재생 중...'; };
+            u.onend = () => { status.textContent = '✅ 재생이 끝났어요!'; };
+            u.onerror = () => { status.textContent = '❌ 재생 중 오류가 발생했어요.'; };
+            window.speechSynthesis.speak(u);
+        }
+
+        function stopTTS() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                document.getElementById('ttsStatus').textContent = '⏹️ 정지했어요.';
+            }
+        }
+
+        // ----- STT -----
+        let recognition = null;
+        let sttRunning = false;
+        let sttFinalText = '';
+
+        function getRecognition() {
+            const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SR) return null;
+            return new SR();
+        }
+
+        function startSTT() {
+            const status = document.getElementById('sttStatus');
+            const result = document.getElementById('sttResult');
+            const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SR) {
+                status.textContent = '⚠️ 이 브라우저는 STT를 지원하지 않아요. (Chrome 권장)';
+                return;
+            }
+            if (sttRunning) return;
+            recognition = new SR();
+            recognition.lang = document.getElementById('sttLang').value;
+            recognition.continuous = document.getElementById('sttMode').value === 'continuous';
+            recognition.interimResults = true;
+
+            sttFinalText = result.textContent.trim();
+            if (sttFinalText) sttFinalText += '\n';
+
+            recognition.onstart = () => {
+                sttRunning = true;
+                document.getElementById('sttStartBtn').disabled = true;
+                document.getElementById('sttStopBtn').disabled = false;
+                status.textContent = '🎤 듣고 있어요... 마이크에 말해보세요!';
+            };
+            recognition.onresult = (e) => {
+                let interim = '';
+                for (let i = e.resultIndex; i < e.results.length; i++) {
+                    const t = e.results[i][0].transcript;
+                    if (e.results[i].isFinal) sttFinalText += t + ' ';
+                    else interim += t;
+                }
+                result.textContent = sttFinalText + (interim ? '〔' + interim + '〕' : '');
+            };
+            recognition.onerror = (e) => {
+                status.textContent = '❌ 오류: ' + e.error + ' (마이크 권한을 확인하세요)';
+                sttRunning = false;
+                document.getElementById('sttStartBtn').disabled = false;
+                document.getElementById('sttStopBtn').disabled = true;
+            };
+            recognition.onend = () => {
+                sttRunning = false;
+                document.getElementById('sttStartBtn').disabled = false;
+                document.getElementById('sttStopBtn').disabled = true;
+                status.textContent = '✅ 듣기를 마쳤어요. 다시 시작하려면 버튼을 눌러주세요.';
+                result.textContent = sttFinalText.trim();
+            };
+            try { recognition.start(); }
+            catch (err) { status.textContent = '⚠️ 시작에 실패했어요: ' + err.message; }
+        }
+
+        function stopSTT() {
+            if (recognition && sttRunning) recognition.stop();
+        }
+
+        function clearSTT() {
+            sttFinalText = '';
+            document.getElementById('sttResult').textContent = '';
+            document.getElementById('sttStatus').textContent = '🧹 결과를 지웠어요.';
         }
 
         // ========== Init ==========
