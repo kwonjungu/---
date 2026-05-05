@@ -494,89 +494,8 @@
                 </div>
                 <p class="text-gray-500 mb-4 text-base"><i class="fa-solid fa-circle-info text-orange-400 mr-1"></i> 음성 명령에 따라 로봇이 어떻게 반응할지 직접 설계해 보세요!</p>
 
-                <div class="overflow-x-auto mb-8">
-                    <table class="activity-table">
-                        <thead>
-                            <tr class="bg-orange-500 text-white">
-                                <th class="rounded-tl-xl">음성 명령</th>
-                                <th>LED 밝기</th>
-                                <th>음성 안내</th>
-                                <th class="rounded-tr-xl">동작</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-orange-50/40">
-                            <tr class="border-b border-orange-100">
-                                <td><input type="text" class="input-field input-orange" placeholder="예: 스트레칭 시작" data-key="session46_a4_cmd_0"></td>
-                                <td>
-                                    <select class="input-field input-orange" data-key="session46_a4_led_0">
-                                        <option value="">선택</option>
-                                        <option value="끔">🌑 끔 (0)</option>
-                                        <option value="약하게">🔅 약하게</option>
-                                        <option value="보통">💡 보통</option>
-                                        <option value="밝게">🔆 밝게</option>
-                                        <option value="매우밝게">✨ 매우 밝게 (최대)</option>
-                                    </select>
-                                </td>
-                                <td><input type="text" class="input-field input-orange" placeholder="음성 안내를 입력하세요" data-key="session46_a4_voice_0"></td>
-                                <td><input type="text" class="input-field input-orange" placeholder="동작을 입력하세요" data-key="session46_a4_action_0"></td>
-                            </tr>
-                            <tr class="border-b border-orange-100">
-                                <td><input type="text" class="input-field input-orange" placeholder="음성 명령을 입력하세요" data-key="session46_a4_cmd_1"></td>
-                                <td>
-                                    <select class="input-field input-orange" data-key="session46_a4_led_1">
-                                        <option value="">선택</option>
-                                        <option value="끔">🌑 끔 (0)</option>
-                                        <option value="약하게">🔅 약하게</option>
-                                        <option value="보통">💡 보통</option>
-                                        <option value="밝게">🔆 밝게</option>
-                                        <option value="매우밝게">✨ 매우 밝게 (최대)</option>
-                                    </select>
-                                </td>
-                                <td><input type="text" class="input-field input-orange" placeholder="음성 안내를 입력하세요" data-key="session46_a4_voice_1"></td>
-                                <td><input type="text" class="input-field input-orange" placeholder="동작을 입력하세요" data-key="session46_a4_action_1"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" class="input-field input-orange" placeholder="음성 명령을 입력하세요" data-key="session46_a4_cmd_2"></td>
-                                <td>
-                                    <select class="input-field input-orange" data-key="session46_a4_led_2">
-                                        <option value="">선택</option>
-                                        <option value="끔">🌑 끔 (0)</option>
-                                        <option value="약하게">🔅 약하게</option>
-                                        <option value="보통">💡 보통</option>
-                                        <option value="밝게">🔆 밝게</option>
-                                        <option value="매우밝게">✨ 매우 밝게 (최대)</option>
-                                    </select>
-                                </td>
-                                <td><input type="text" class="input-field input-orange" placeholder="음성 안내를 입력하세요" data-key="session46_a4_voice_2"></td>
-                                <td><input type="text" class="input-field input-orange" placeholder="동작을 입력하세요" data-key="session46_a4_action_2"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Robot Name & Description -->
-                <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border-2 border-dashed border-orange-300 mb-8">
-                    <h3 class="text-xl font-bold text-orange-600 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-robot text-2xl"></i> 우리 팀의 AI 음성 로봇
-                    </h3>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-orange-700 font-bold mb-2">
-                                <i class="fa-solid fa-tag mr-1"></i> 우리 팀 AI 음성 로봇의 이름
-                            </label>
-                            <input type="text" class="input-field input-orange text-xl text-center" placeholder="멋진 이름을 지어주세요!" data-key="session46_a4_robotname">
-                        </div>
-                        <div>
-                            <label class="block text-orange-700 font-bold mb-2">
-                                <i class="fa-solid fa-pen-fancy mr-1"></i> 한 줄 소개
-                            </label>
-                            <textarea class="input-field input-orange text-center" rows="2" placeholder="우리 로봇을 한 줄로 소개해 주세요!" data-key="session46_a4_robotdesc"></textarea>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- ========== STT vs TTS 체험·비교 코너 ========== -->
-                <div class="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-6 border-2 border-purple-300 shadow-inner">
+                <div class="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-6 border-2 border-purple-300 shadow-inner mb-8">
                     <h3 class="text-xl md:text-2xl font-bold text-purple-700 mb-2 flex items-center gap-2">
                         <i class="fa-solid fa-headphones-simple text-2xl"></i> STT vs TTS 직접 체험하고 비교하기
                     </h3>
@@ -716,18 +635,94 @@
                                         <td><textarea class="input-field" rows="2" placeholder="실생활 예시" data-key="session46_a4_cmp_use_tts"></textarea></td>
                                         <td><textarea class="input-field" rows="2" placeholder="실생활 예시" data-key="session46_a4_cmp_use_stt"></textarea></td>
                                     </tr>
-                                    <tr class="border-b border-purple-100">
+                                    <tr>
                                         <td class="font-bold text-purple-700 whitespace-nowrap"><i class="fa-solid fa-thumbs-up text-purple-400 mr-1"></i> 좋은 점</td>
                                         <td><textarea class="input-field" rows="2" placeholder="장점을 적어보세요" data-key="session46_a4_cmp_pros_tts"></textarea></td>
                                         <td><textarea class="input-field" rows="2" placeholder="장점을 적어보세요" data-key="session46_a4_cmp_pros_stt"></textarea></td>
                                     </tr>
-                                    <tr>
-                                        <td class="font-bold text-purple-700 whitespace-nowrap"><i class="fa-solid fa-triangle-exclamation text-purple-400 mr-1"></i> 어려운 점</td>
-                                        <td><textarea class="input-field" rows="2" placeholder="단점을 적어보세요" data-key="session46_a4_cmp_cons_tts"></textarea></td>
-                                        <td><textarea class="input-field" rows="2" placeholder="단점을 적어보세요" data-key="session46_a4_cmp_cons_stt"></textarea></td>
-                                    </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto mb-8">
+                    <table class="activity-table">
+                        <thead>
+                            <tr class="bg-orange-500 text-white">
+                                <th class="rounded-tl-xl">음성 명령</th>
+                                <th>LED 밝기</th>
+                                <th>음성 안내</th>
+                                <th class="rounded-tr-xl">동작</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-orange-50/40">
+                            <tr class="border-b border-orange-100">
+                                <td><input type="text" class="input-field input-orange" placeholder="예: 스트레칭 시작" data-key="session46_a4_cmd_0"></td>
+                                <td>
+                                    <select class="input-field input-orange" data-key="session46_a4_led_0">
+                                        <option value="">선택</option>
+                                        <option value="끔">🌑 끔 (0)</option>
+                                        <option value="약하게">🔅 약하게</option>
+                                        <option value="보통">💡 보통</option>
+                                        <option value="밝게">🔆 밝게</option>
+                                        <option value="매우밝게">✨ 매우 밝게 (최대)</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="input-field input-orange" placeholder="음성 안내를 입력하세요" data-key="session46_a4_voice_0"></td>
+                                <td><input type="text" class="input-field input-orange" placeholder="동작을 입력하세요" data-key="session46_a4_action_0"></td>
+                            </tr>
+                            <tr class="border-b border-orange-100">
+                                <td><input type="text" class="input-field input-orange" placeholder="음성 명령을 입력하세요" data-key="session46_a4_cmd_1"></td>
+                                <td>
+                                    <select class="input-field input-orange" data-key="session46_a4_led_1">
+                                        <option value="">선택</option>
+                                        <option value="끔">🌑 끔 (0)</option>
+                                        <option value="약하게">🔅 약하게</option>
+                                        <option value="보통">💡 보통</option>
+                                        <option value="밝게">🔆 밝게</option>
+                                        <option value="매우밝게">✨ 매우 밝게 (최대)</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="input-field input-orange" placeholder="음성 안내를 입력하세요" data-key="session46_a4_voice_1"></td>
+                                <td><input type="text" class="input-field input-orange" placeholder="동작을 입력하세요" data-key="session46_a4_action_1"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="input-field input-orange" placeholder="음성 명령을 입력하세요" data-key="session46_a4_cmd_2"></td>
+                                <td>
+                                    <select class="input-field input-orange" data-key="session46_a4_led_2">
+                                        <option value="">선택</option>
+                                        <option value="끔">🌑 끔 (0)</option>
+                                        <option value="약하게">🔅 약하게</option>
+                                        <option value="보통">💡 보통</option>
+                                        <option value="밝게">🔆 밝게</option>
+                                        <option value="매우밝게">✨ 매우 밝게 (최대)</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="input-field input-orange" placeholder="음성 안내를 입력하세요" data-key="session46_a4_voice_2"></td>
+                                <td><input type="text" class="input-field input-orange" placeholder="동작을 입력하세요" data-key="session46_a4_action_2"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Robot Name & Description -->
+                <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border-2 border-dashed border-orange-300">
+                    <h3 class="text-xl font-bold text-orange-600 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-robot text-2xl"></i> 우리 팀의 AI 음성 로봇
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-orange-700 font-bold mb-2">
+                                <i class="fa-solid fa-tag mr-1"></i> 우리 팀 AI 음성 로봇의 이름
+                            </label>
+                            <input type="text" class="input-field input-orange text-xl text-center" placeholder="멋진 이름을 지어주세요!" data-key="session46_a4_robotname">
+                        </div>
+                        <div>
+                            <label class="block text-orange-700 font-bold mb-2">
+                                <i class="fa-solid fa-pen-fancy mr-1"></i> 한 줄 소개
+                            </label>
+                            <textarea class="input-field input-orange text-center" rows="2" placeholder="우리 로봇을 한 줄로 소개해 주세요!" data-key="session46_a4_robotdesc"></textarea>
                         </div>
                     </div>
                 </div>
