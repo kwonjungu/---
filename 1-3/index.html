@@ -61,7 +61,7 @@
 </header>
 <!-- Step Navigation -->
 <div class="max-w-4xl mx-auto mb-10 no-print">
-    <div class="grid grid-cols-5 gap-3">
+    <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
         <button onclick="goStep(1)" id="step1btn" class="step-btn active bg-white rounded-2xl p-3 shadow-md border-b-4 border-yellow-400 text-center relative">
             <div class="done-check absolute top-2 right-2 text-green-500"><i class="fa-solid fa-circle-check"></i></div>
             <div class="text-2xl text-yellow-500 mb-1"><i class="fa-solid fa-building"></i></div>
@@ -73,6 +73,12 @@
             <div class="text-2xl text-blue-500 mb-1"><i class="fa-solid fa-eye"></i></div>
             <h3 class="text-sm font-bold text-blue-600">활동 2</h3>
             <p class="text-xs text-gray-500">감각-센서 비교</p>
+        </button>
+        <button onclick="goStep(6)" id="step6btn" class="step-btn bg-white rounded-2xl p-3 shadow-md border-b-4 border-purple-400 text-center relative">
+            <div class="done-check absolute top-2 right-2 text-green-500"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="text-2xl text-purple-500 mb-1"><i class="fa-solid fa-dice"></i></div>
+            <h3 class="text-sm font-bold text-purple-600">역할 뽑기</h3>
+            <p class="text-xs text-gray-500">랜덤 배정</p>
         </button>
         <button onclick="goStep(3)" id="step3btn" class="step-btn bg-white rounded-2xl p-3 shadow-md border-b-4 border-green-400 text-center relative">
             <div class="done-check absolute top-2 right-2 text-green-500"><i class="fa-solid fa-circle-check"></i></div>
@@ -151,10 +157,78 @@
     </div>
 </div>
 
+<!-- ===== 역할 뽑기 (panel6) ===== -->
+<div id="panel6" class="panel">
+    <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-8 border-purple-400 mb-6">
+        <h2 class="text-2xl font-bold text-purple-600 mb-2"><i class="fa-solid fa-dice mr-2"></i>블라인드봇 역할 뽑기</h2>
+        <p class="text-gray-500 mb-6">팀원 4명의 이름을 적고 <b class="text-purple-600">뽑기</b> 버튼을 누르면 역할이 무작위로 배정돼요!</p>
+
+        <!-- 이름 입력 -->
+        <div class="bg-purple-50 rounded-2xl p-4 border border-purple-100 mb-6">
+            <label class="block text-lg font-bold text-gray-700 mb-3"><i class="fa-solid fa-users mr-1 text-purple-500"></i>팀원 이름 (4명)</label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <input data-key="dr_n1" id="drName1" type="text" placeholder="1번 친구" class="px-4 py-3 rounded-xl border-2 border-purple-200 focus:border-purple-400 outline-none text-lg bg-white">
+                <input data-key="dr_n2" id="drName2" type="text" placeholder="2번 친구" class="px-4 py-3 rounded-xl border-2 border-purple-200 focus:border-purple-400 outline-none text-lg bg-white">
+                <input data-key="dr_n3" id="drName3" type="text" placeholder="3번 친구" class="px-4 py-3 rounded-xl border-2 border-purple-200 focus:border-purple-400 outline-none text-lg bg-white">
+                <input data-key="dr_n4" id="drName4" type="text" placeholder="4번 친구" class="px-4 py-3 rounded-xl border-2 border-purple-200 focus:border-purple-400 outline-none text-lg bg-white">
+            </div>
+        </div>
+
+        <!-- 뽑기 버튼 -->
+        <div class="text-center mb-6 no-print flex justify-center gap-3 flex-wrap">
+            <button id="drawBtn" onclick="drawRoles()" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-4 px-10 rounded-full text-xl shadow-lg hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                <i class="fa-solid fa-dice mr-2"></i>역할 뽑기!
+            </button>
+            <button onclick="clearDraw()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-4 px-6 rounded-full text-lg transition">
+                <i class="fa-solid fa-rotate-left mr-1"></i>다시 뽑기
+            </button>
+        </div>
+
+        <!-- 결과 카드 -->
+        <div id="drawResult" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white rounded-2xl p-5 shadow-md border-l-8 border-yellow-400 result-card" data-role="processor">
+                <h3 class="text-xl font-bold text-yellow-600 mb-2"><i class="fa-solid fa-brain mr-1"></i>프로세서</h3>
+                <p class="text-sm text-gray-500 mb-3"><i class="fa-solid fa-location-dot mr-1"></i>가운데 (눈가림)</p>
+                <div class="bg-yellow-50 rounded-xl py-4 text-center">
+                    <span class="role-name text-3xl font-bold text-yellow-700">?</span>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-5 shadow-md border-l-8 border-blue-400 result-card" data-role="left">
+                <h3 class="text-xl font-bold text-blue-600 mb-2"><i class="fa-solid fa-satellite-dish mr-1"></i>센서(좌)</h3>
+                <p class="text-sm text-gray-500 mb-3"><i class="fa-solid fa-location-dot mr-1"></i>프로세서 왼쪽</p>
+                <div class="bg-blue-50 rounded-xl py-4 text-center">
+                    <span class="role-name text-3xl font-bold text-blue-700">?</span>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-5 shadow-md border-l-8 border-green-400 result-card" data-role="right">
+                <h3 class="text-xl font-bold text-green-600 mb-2"><i class="fa-solid fa-satellite-dish mr-1"></i>센서(우)</h3>
+                <p class="text-sm text-gray-500 mb-3"><i class="fa-solid fa-location-dot mr-1"></i>프로세서 오른쪽</p>
+                <div class="bg-green-50 rounded-xl py-4 text-center">
+                    <span class="role-name text-3xl font-bold text-green-700">?</span>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-5 shadow-md border-l-8 border-pink-400 result-card" data-role="front">
+                <h3 class="text-xl font-bold text-pink-600 mb-2"><i class="fa-solid fa-ruler mr-1"></i>전면 센서</h3>
+                <p class="text-sm text-gray-500 mb-3"><i class="fa-solid fa-location-dot mr-1"></i>프로세서 뒤쪽</p>
+                <div class="bg-pink-50 rounded-xl py-4 text-center">
+                    <span class="role-name text-3xl font-bold text-pink-700">?</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="text-center no-print flex justify-center gap-3">
+        <button onclick="goStep(2)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-full text-lg transition"><i class="fa-solid fa-arrow-left mr-1"></i>활동 2</button>
+        <button onclick="goStep(3)" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition">활동 3으로 <i class="fa-solid fa-arrow-right ml-1"></i></button>
+    </div>
+</div>
+
 <!-- ===== 활동 3: 블라인드봇 역할 카드 ===== -->
 <div id="panel3" class="panel">
     <section class="mb-8">
-        <h2 class="text-2xl font-bold text-green-600 mb-6"><i class="fa-solid fa-people-arrows mr-2"></i>블라인드봇 역할 카드</h2>
+        <div class="flex items-center justify-between flex-wrap gap-3 mb-6">
+            <h2 class="text-2xl font-bold text-green-600"><i class="fa-solid fa-people-arrows mr-2"></i>블라인드봇 역할 카드</h2>
+            <button onclick="goStep(6)" class="no-print bg-purple-100 hover:bg-purple-200 text-purple-700 font-bold py-2 px-4 rounded-full text-sm transition"><i class="fa-solid fa-dice mr-1"></i>역할 뽑으러 가기</button>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div class="bg-white rounded-2xl p-5 shadow-md border-l-8 border-yellow-400">
                 <h3 class="text-xl font-bold text-yellow-600 mb-2"><i class="fa-solid fa-brain mr-1"></i>프로세서</h3>
@@ -282,6 +356,42 @@ function saveAll(){document.querySelectorAll('[data-key]').forEach(el=>{const v=
 function loadAll(){document.querySelectorAll('[data-key]').forEach(el=>{const v=localStorage.getItem(PREFIX+el.dataset.key);if(v!==null)el.value=v})}
 function resetAll(){if(!confirm('모든 입력을 초기화할까요?'))return;document.querySelectorAll('[data-key]').forEach(el=>{el.value='';localStorage.removeItem(PREFIX+el.dataset.key)});showToast('초기화 완료!')}
 document.addEventListener('DOMContentLoaded',()=>{loadAll();document.querySelectorAll('[data-key]').forEach(el=>{el.addEventListener('input',saveAll);el.addEventListener('change',saveAll)})});
+
+// ===== 블라인드봇 역할 뽑기 =====
+const ROLE_KEYS=['processor','left','right','front'];
+const ROLE_LABELS={processor:'프로세서',left:'센서(좌)',right:'센서(우)',front:'전면 센서'};
+function getDrawNames(){return [1,2,3,4].map(i=>(document.getElementById('drName'+i).value||'').trim())}
+function setRoleName(role,text,highlight){const card=document.querySelector(`#drawResult .result-card[data-role="${role}"] .role-name`);if(!card)return;card.textContent=text||'?';if(highlight){card.classList.add('animate-pulse')}else{card.classList.remove('animate-pulse')}}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function clearDraw(){ROLE_KEYS.forEach(r=>setRoleName(r,'?',false))}
+function drawRoles(){
+    const names=getDrawNames();
+    const filled=names.filter(n=>n.length>0);
+    if(filled.length<4){showToast('팀원 4명 이름을 모두 입력해주세요!');return}
+    const unique=new Set(filled);
+    if(unique.size<4){showToast('이름이 겹쳐요. 서로 다르게 적어주세요!');return}
+    const btn=document.getElementById('drawBtn');
+    btn.disabled=true;
+    // 룰렛 애니메이션
+    const pool=[...names];
+    let ticks=0;const total=18;
+    ROLE_KEYS.forEach(r=>setRoleName(r,'?',true));
+    const spin=setInterval(()=>{
+        ROLE_KEYS.forEach(r=>{
+            const pick=pool[Math.floor(Math.random()*pool.length)];
+            setRoleName(r,pick,true);
+        });
+        ticks++;
+        if(ticks>=total){
+            clearInterval(spin);
+            const finalAssign=shuffle([...names]);
+            ROLE_KEYS.forEach((r,i)=>setRoleName(r,finalAssign[i],false));
+            btn.disabled=false;
+            completeStep(6);
+            showToast('🎉 역할 배정 완료!');
+        }
+    },80);
+}
 </script>
 </body>
 </html>
