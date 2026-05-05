@@ -68,11 +68,11 @@
             <h3 class="text-sm font-bold text-yellow-600">활동 1</h3>
             <p class="text-xs text-gray-500">창업 기획서</p>
         </button>
-        <button onclick="goStep(2)" id="step2btn" class="step-btn bg-white rounded-2xl p-3 shadow-md border-b-4 border-blue-400 text-center relative">
+        <button onclick="goStep(2)" id="step2btn" class="step-btn bg-white rounded-2xl p-3 shadow-md border-b-4 border-green-400 text-center relative">
             <div class="done-check absolute top-2 right-2 text-green-500"><i class="fa-solid fa-circle-check"></i></div>
-            <div class="text-2xl text-blue-500 mb-1"><i class="fa-solid fa-eye"></i></div>
-            <h3 class="text-sm font-bold text-blue-600">활동 2</h3>
-            <p class="text-xs text-gray-500">감각-센서 비교</p>
+            <div class="text-2xl text-green-500 mb-1"><i class="fa-solid fa-people-arrows"></i></div>
+            <h3 class="text-sm font-bold text-green-600">활동 2</h3>
+            <p class="text-xs text-gray-500">블라인드봇</p>
         </button>
         <button onclick="goStep(6)" id="step6btn" class="step-btn bg-white rounded-2xl p-3 shadow-md border-b-4 border-purple-400 text-center relative">
             <div class="done-check absolute top-2 right-2 text-green-500"><i class="fa-solid fa-circle-check"></i></div>
@@ -80,11 +80,11 @@
             <h3 class="text-sm font-bold text-purple-600">역할 뽑기</h3>
             <p class="text-xs text-gray-500">랜덤 배정</p>
         </button>
-        <button onclick="goStep(3)" id="step3btn" class="step-btn bg-white rounded-2xl p-3 shadow-md border-b-4 border-green-400 text-center relative">
+        <button onclick="goStep(3)" id="step3btn" class="step-btn bg-white rounded-2xl p-3 shadow-md border-b-4 border-blue-400 text-center relative">
             <div class="done-check absolute top-2 right-2 text-green-500"><i class="fa-solid fa-circle-check"></i></div>
-            <div class="text-2xl text-green-500 mb-1"><i class="fa-solid fa-people-arrows"></i></div>
-            <h3 class="text-sm font-bold text-green-600">활동 3</h3>
-            <p class="text-xs text-gray-500">블라인드봇</p>
+            <div class="text-2xl text-blue-500 mb-1"><i class="fa-solid fa-eye"></i></div>
+            <h3 class="text-sm font-bold text-blue-600">활동 3</h3>
+            <p class="text-xs text-gray-500">감각-센서 비교</p>
         </button>
         <button onclick="goStep(4)" id="step4btn" class="step-btn bg-white rounded-2xl p-3 shadow-md border-b-4 border-orange-400 text-center relative">
             <div class="done-check absolute top-2 right-2 text-green-500"><i class="fa-solid fa-circle-check"></i></div>
@@ -130,11 +130,11 @@
             </div>
         </div>
     </section>
-    <div class="text-center no-print"><button onclick="completeStep(1);goStep(2)" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition">활동 2로 이동 <i class="fa-solid fa-arrow-right ml-2"></i></button></div>
+    <div class="text-center no-print"><button onclick="completeStep(1);goStep(2)" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition">활동 2 (블라인드봇)으로 이동 <i class="fa-solid fa-arrow-right ml-2"></i></button></div>
 </div>
 
-<!-- ===== 활동 2: 감각기관-센서 비교표 ===== -->
-<div id="panel2" class="panel">
+<!-- ===== 활동 3: 감각기관-센서 비교표 ===== -->
+<div id="panel3" class="panel">
     <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-8 border-blue-400 mb-6">
         <h2 class="text-2xl font-bold text-blue-600 mb-6"><i class="fa-solid fa-eye mr-2"></i>감각기관과 센서 비교표</h2>
         <div class="overflow-x-auto">
@@ -152,8 +152,8 @@
     <!-- 엔트리 바로가기 -->
     <div class="text-center mb-6 no-print"><a href="https://playentry.org/" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-green-400 to-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition"><i class="fa-solid fa-code"></i>엔트리 바로가기<i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a></div>
     <div class="text-center no-print flex justify-center gap-3">
-        <button onclick="goStep(1)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-full text-lg transition"><i class="fa-solid fa-arrow-left mr-1"></i>활동 1</button>
-        <button onclick="completeStep(2);goStep(3)" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition">활동 3으로 <i class="fa-solid fa-arrow-right ml-1"></i></button>
+        <button onclick="goStep(2)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-full text-lg transition"><i class="fa-solid fa-arrow-left mr-1"></i>활동 2</button>
+        <button onclick="completeStep(3);goStep(4)" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition">활동 4로 <i class="fa-solid fa-arrow-right ml-1"></i></button>
     </div>
 </div>
 
@@ -237,8 +237,8 @@
     </div>
 </div>
 
-<!-- ===== 활동 3: 블라인드봇 역할 카드 ===== -->
-<div id="panel3" class="panel">
+<!-- ===== 활동 2: 블라인드봇 역할 카드 ===== -->
+<div id="panel2" class="panel">
     <section class="mb-8">
         <div class="flex items-center justify-between flex-wrap gap-3 mb-6">
             <h2 class="text-2xl font-bold text-green-600"><i class="fa-solid fa-people-arrows mr-2"></i>블라인드봇 역할 카드</h2>
@@ -272,8 +272,8 @@
         </div>
     </section>
     <div class="text-center no-print flex justify-center gap-3">
-        <button onclick="goStep(2)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-full text-lg transition"><i class="fa-solid fa-arrow-left mr-1"></i>활동 2</button>
-        <button onclick="completeStep(3);goStep(4)" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition">활동 4로 <i class="fa-solid fa-arrow-right ml-1"></i></button>
+        <button onclick="goStep(1)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-full text-lg transition"><i class="fa-solid fa-arrow-left mr-1"></i>활동 1</button>
+        <button onclick="completeStep(2);goStep(3)" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition">활동 3으로 <i class="fa-solid fa-arrow-right ml-1"></i></button>
     </div>
 </div>
 
