@@ -187,33 +187,48 @@
         <!-- 결과 카드 -->
         <div id="drawResult" class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="bg-white rounded-2xl p-5 shadow-md border-l-8 border-yellow-400 result-card" data-role="processor">
-                <h3 class="text-xl font-bold text-yellow-600 mb-2"><i class="fa-solid fa-brain mr-1"></i>프로세서</h3>
-                <p class="text-sm text-gray-500 mb-3"><i class="fa-solid fa-location-dot mr-1"></i>가운데 (눈가림)</p>
+                <h3 class="text-xl font-bold text-yellow-600 mb-1"><i class="fa-solid fa-brain mr-1"></i>프로세서</h3>
+                <p class="text-sm text-gray-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i>가운데 (눈가림)</p>
+                <p class="text-sm text-gray-700 mb-3"><i class="fa-solid fa-bullseye mr-1 text-yellow-500"></i>센서들의 신호를 받아 어느 방향으로 갈지 <b>판단·결정</b>해요. 눈을 가리고 친구들의 신호만 듣고 판단해야 해요!</p>
                 <div class="bg-yellow-50 rounded-xl py-4 text-center">
                     <span class="role-name text-3xl font-bold text-yellow-700">?</span>
                 </div>
             </div>
             <div class="bg-white rounded-2xl p-5 shadow-md border-l-8 border-blue-400 result-card" data-role="left">
-                <h3 class="text-xl font-bold text-blue-600 mb-2"><i class="fa-solid fa-satellite-dish mr-1"></i>센서(좌)</h3>
-                <p class="text-sm text-gray-500 mb-3"><i class="fa-solid fa-location-dot mr-1"></i>프로세서 왼쪽</p>
+                <h3 class="text-xl font-bold text-blue-600 mb-1"><i class="fa-solid fa-satellite-dish mr-1"></i>센서(좌)</h3>
+                <p class="text-sm text-gray-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i>프로세서 왼쪽</p>
+                <p class="text-sm text-gray-700 mb-3"><i class="fa-solid fa-hand-point-left mr-1 text-blue-500"></i><b>왼쪽에 장애물</b>이 있으면 프로세서의 <b>왼쪽 어깨를 탭</b>해 신호를 보내요.</p>
                 <div class="bg-blue-50 rounded-xl py-4 text-center">
                     <span class="role-name text-3xl font-bold text-blue-700">?</span>
                 </div>
             </div>
             <div class="bg-white rounded-2xl p-5 shadow-md border-l-8 border-green-400 result-card" data-role="right">
-                <h3 class="text-xl font-bold text-green-600 mb-2"><i class="fa-solid fa-satellite-dish mr-1"></i>센서(우)</h3>
-                <p class="text-sm text-gray-500 mb-3"><i class="fa-solid fa-location-dot mr-1"></i>프로세서 오른쪽</p>
+                <h3 class="text-xl font-bold text-green-600 mb-1"><i class="fa-solid fa-satellite-dish mr-1"></i>센서(우)</h3>
+                <p class="text-sm text-gray-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i>프로세서 오른쪽</p>
+                <p class="text-sm text-gray-700 mb-3"><i class="fa-solid fa-hand-point-right mr-1 text-green-500"></i><b>오른쪽에 장애물</b>이 있으면 프로세서의 <b>오른쪽 어깨를 탭</b>해 신호를 보내요.</p>
                 <div class="bg-green-50 rounded-xl py-4 text-center">
                     <span class="role-name text-3xl font-bold text-green-700">?</span>
                 </div>
             </div>
             <div class="bg-white rounded-2xl p-5 shadow-md border-l-8 border-pink-400 result-card" data-role="front">
-                <h3 class="text-xl font-bold text-pink-600 mb-2"><i class="fa-solid fa-ruler mr-1"></i>전면 센서</h3>
-                <p class="text-sm text-gray-500 mb-3"><i class="fa-solid fa-location-dot mr-1"></i>프로세서 뒤쪽</p>
+                <h3 class="text-xl font-bold text-pink-600 mb-1"><i class="fa-solid fa-ruler mr-1"></i>전면 센서</h3>
+                <p class="text-sm text-gray-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i>프로세서 뒤쪽</p>
+                <p class="text-sm text-gray-700 mb-3"><i class="fa-solid fa-ruler-horizontal mr-1 text-pink-500"></i>앞쪽 장애물까지의 <b>거리를 숫자(예: 30cm)로 말해</b> 프로세서에게 알려줘요.</p>
                 <div class="bg-pink-50 rounded-xl py-4 text-center">
                     <span class="role-name text-3xl font-bold text-pink-700">?</span>
                 </div>
             </div>
+        </div>
+
+        <!-- 활동 방법 안내 -->
+        <div class="mt-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-5 border-2 border-dashed border-purple-300">
+            <h3 class="font-bold text-purple-700 mb-2"><i class="fa-solid fa-circle-info mr-1"></i>이렇게 활동해요!</h3>
+            <ol class="list-decimal list-inside space-y-1 text-sm text-gray-700">
+                <li><b>프로세서</b>는 눈을 가리고 가운데에 서요.</li>
+                <li><b>센서(좌·우)</b>는 양옆에서 장애물을 보고 어깨를 탭해요. <b>말은 하지 않아요!</b></li>
+                <li><b>전면 센서</b>는 앞 장애물까지의 거리를 숫자로 알려줘요.</li>
+                <li>프로세서는 신호만 듣고 어느 쪽으로 움직일지 결정해요.</li>
+            </ol>
         </div>
     </section>
     <div class="text-center no-print flex justify-center gap-3">
