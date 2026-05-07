@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
         :root {
@@ -162,7 +163,7 @@
 
         <!-- 서브 탭 1: 사례 탐색 -->
         <div id="panel-tab1" class="panel-79 active">
-            <div class="card-base border-t-4 border-green-400">
+            <div id="case-explore-card" class="card-base border-t-4 border-green-400">
                 <h2 class="text-2xl font-bold mb-2 text-green-600"><i class="fa-solid fa-globe mr-2"></i>활동 1: 멀티모달 AI 사례 탐색</h2>
                 <p class="text-gray-500 mb-4 text-sm">여러 감각을 동시에 사용하는 AI 서비스나 기기를 찾아보세요.</p>
                 <div class="space-y-4">
@@ -223,6 +224,26 @@
                 </div>
             </div>
             
+            <!-- 저장/복사 버튼 -->
+            <div class="mt-5 bg-green-50 border-2 border-dashed border-green-300 rounded-2xl p-4 no-print">
+                <p class="text-center text-sm text-gray-600 mb-3">
+                    <i class="fa-solid fa-share-from-square text-green-500 mr-1"></i>
+                    다 작성했으면 <b>사진으로 저장</b>하거나 <b>텍스트로 복사</b>해서 다른 곳(문서, 발표 자료, 메신저 등)에 바로 옮겨보세요!
+                </p>
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <button onclick="saveCaseAsImage()" class="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transform transition hover:scale-105 active:scale-95">
+                        <i class="fa-solid fa-camera"></i> 사진으로 저장
+                    </button>
+                    <button onclick="copyCaseAsText()" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transform transition hover:scale-105 active:scale-95">
+                        <i class="fa-solid fa-clipboard"></i> 텍스트 복사
+                    </button>
+                    <button onclick="copyCaseAsImage()" class="inline-flex items-center gap-2 bg-white border-2 border-purple-400 text-purple-600 font-bold py-3 px-6 rounded-full shadow hover:bg-purple-50 transform transition hover:scale-105 active:scale-95">
+                        <i class="fa-solid fa-image"></i> 이미지로 복사
+                    </button>
+                </div>
+                <div id="case-save-status" class="text-center text-sm text-green-600 mt-3 min-h-[1.25rem]"></div>
+            </div>
+
             <div class="text-center mt-6 no-print">
                 <button onclick="changeSubTab('tab2')" class="bg-violet-500 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition text-lg">활동 2로 이동하기 <i class="fa-solid fa-arrow-right ml-1"></i></button>
             </div>
@@ -609,11 +630,106 @@
             }
         }
 
+        // ==================== 사례 탐색 저장/복사 ====================
+        function setCaseStatus(msg, color) {
+            const el = document.getElementById('case-save-status');
+            if (!el) return;
+            el.style.color = color || '#059669';
+            el.textContent = msg;
+            setTimeout(() => { if (el.textContent === msg) el.textContent = ''; }, 4000);
+        }
+
+        function buildCaseText() {
+            const lines = ['🎯 멀티모달 AI 사례 탐색', '─────────────────────────'];
+            for (let i = 1; i <= 3; i++) {
+                const name = (document.getElementById(`79-case-name-${i}`)?.value || '').trim();
+                const desc = (document.getElementById(`79-case-desc-${i}`)?.value || '').trim();
+                const senses = [];
+                if (document.getElementById(`79-case-c1-${i}`)?.checked) senses.push('📷 카메라(눈)');
+                if (document.getElementById(`79-case-c2-${i}`)?.checked) senses.push('🎤 마이크(귀)');
+                if (document.getElementById(`79-case-c3-${i}`)?.checked) senses.push('🔊 스피커(입)');
+                if (document.getElementById(`79-case-c4-${i}`)?.checked) senses.push('📡 각종 센서');
+                lines.push('');
+                lines.push(`◆ 사례 ${i}: ${name || '(미작성)'}`);
+                lines.push(`   사용 감각: ${senses.length ? senses.join(', ') : '(체크 없음)'}`);
+                lines.push(`   작동 방식: ${desc || '(미작성)'}`);
+            }
+            return lines.join('\n');
+        }
+
+        async function captureCaseCard(scale = 2) {
+            const card = document.getElementById('case-explore-card');
+            if (!card || typeof html2canvas === 'undefined') return null;
+            return await html2canvas(card, {
+                scale,
+                backgroundColor: '#ffffff',
+                useCORS: true,
+                logging: false,
+            });
+        }
+
+        async function saveCaseAsImage() {
+            setCaseStatus('🖼️ 이미지를 만드는 중...', '#0891b2');
+            try {
+                const canvas = await captureCaseCard(2);
+                if (!canvas) { setCaseStatus('❌ 이미지 생성 실패', '#dc2626'); return; }
+                const link = document.createElement('a');
+                const today = new Date().toISOString().slice(0, 10);
+                link.download = `멀티모달_사례탐색_${today}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                setCaseStatus('✅ 사진으로 저장했어요! 다운로드 폴더를 확인하세요.');
+            } catch (err) {
+                setCaseStatus('❌ 저장 실패: ' + err.message, '#dc2626');
+            }
+        }
+
+        async function copyCaseAsImage() {
+            setCaseStatus('📋 이미지를 클립보드에 복사 중...', '#0891b2');
+            try {
+                if (!navigator.clipboard || !window.ClipboardItem) {
+                    setCaseStatus('⚠️ 이 브라우저는 이미지 복사를 지원하지 않아요. (Chrome/Edge 권장)', '#d97706');
+                    return;
+                }
+                const canvas = await captureCaseCard(2);
+                if (!canvas) { setCaseStatus('❌ 이미지 생성 실패', '#dc2626'); return; }
+                canvas.toBlob(async (blob) => {
+                    try {
+                        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                        setCaseStatus('✅ 이미지를 복사했어요! 문서나 메신저에 붙여넣기 해보세요.');
+                    } catch (e) {
+                        setCaseStatus('❌ 복사 실패: ' + e.message, '#dc2626');
+                    }
+                }, 'image/png');
+            } catch (err) {
+                setCaseStatus('❌ 복사 실패: ' + err.message, '#dc2626');
+            }
+        }
+
+        async function copyCaseAsText() {
+            const text = buildCaseText();
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    const ta = document.createElement('textarea');
+                    ta.value = text;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    ta.remove();
+                }
+                setCaseStatus('✅ 텍스트를 복사했어요! 원하는 곳에 붙여넣기 하세요.');
+            } catch (err) {
+                setCaseStatus('❌ 복사 실패: ' + err.message, '#dc2626');
+            }
+        }
+
         // ==================== Initialize ====================
         window.addEventListener('DOMContentLoaded', () => {
             initLocalStorage();
             loadPriorityFromStorage();
-            
+
             // 아코디언 기본 오픈 (상황 1만)
             const firstAccordion = document.querySelector('.accordion-card');
             if(firstAccordion) toggleAccordion(firstAccordion);
