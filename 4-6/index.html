@@ -646,6 +646,16 @@
                     </div>
                 </div>
 
+                <div class="flex flex-wrap justify-end gap-2 mb-3 no-print">
+                    <button type="button" onclick="fillVoiceExamples()" class="inline-flex items-center gap-2 bg-orange-100 hover:bg-orange-200 text-orange-700 font-bold px-4 py-2 rounded-full shadow-sm transition text-sm">
+                        <i class="fa-solid fa-lightbulb"></i> 예시 확인하기
+                    </button>
+                    <button type="button" onclick="clearVoiceTable()" class="inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-gray-500 font-bold px-4 py-2 rounded-full shadow-sm transition text-sm border border-gray-200">
+                        <i class="fa-solid fa-eraser"></i> 표 비우기
+                    </button>
+                </div>
+                <p class="text-xs text-orange-500 mb-2 no-print"><i class="fa-solid fa-circle-info"></i> 예시는 참고용이에요. LED는 실제로 색이 바뀌지 않고, 설계서에만 표시돼요.</p>
+
                 <div class="overflow-x-auto mb-8">
                     <table class="activity-table">
                         <thead>
@@ -828,6 +838,42 @@
                 el.value = '';
             });
             showToast('초기화 완료! 🧹');
+        }
+
+        // ========== 활동 4 음성 명령 예시 채우기 ==========
+        const VOICE_EXAMPLES = [
+            { cmd: '스트레칭 시작', led: '보통',     voice: '어깨를 펴고 천천히 따라해 봐요.', action: '팔을 위아래로 3번 올렸다 내려요.' },
+            { cmd: '잘 자',         led: '약하게',   voice: '좋은 꿈 꿔요.',                 action: '천천히 고개를 숙이고 멈춰요.' },
+            { cmd: '운동 시간',     led: '매우밝게', voice: '신나게 운동을 시작해요!',         action: '제자리에서 점프 3번.' },
+        ];
+
+        function fillVoiceExamples() {
+            VOICE_EXAMPLES.forEach((ex, i) => {
+                const cmd    = document.querySelector(`[data-key="session46_a4_cmd_${i}"]`);
+                const led    = document.querySelector(`[data-key="session46_a4_led_${i}"]`);
+                const voice  = document.querySelector(`[data-key="session46_a4_voice_${i}"]`);
+                const action = document.querySelector(`[data-key="session46_a4_action_${i}"]`);
+                if (cmd)    { cmd.value    = ex.cmd;    saveField(cmd); }
+                if (led)    { led.value    = ex.led;    saveField(led); }
+                if (voice)  { voice.value  = ex.voice;  saveField(voice); }
+                if (action) { action.value = ex.action; saveField(action); }
+            });
+            showToast('예시를 채웠어요! ✨');
+        }
+
+        function clearVoiceTable() {
+            const keys = ['cmd', 'led', 'voice', 'action'];
+            for (let i = 0; i < 3; i++) {
+                keys.forEach(k => {
+                    const el = document.querySelector(`[data-key="session46_a4_${k}_${i}"]`);
+                    if (el) {
+                        el.value = '';
+                        const key = el.getAttribute('data-key');
+                        localStorage.removeItem(key);
+                    }
+                });
+            }
+            showToast('표를 비웠어요! 🧹');
         }
 
         // ========== Source Code Link Confirmation ==========
