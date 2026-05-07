@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body {
             font-family: 'Jua', sans-serif;
@@ -236,7 +237,7 @@
 
         <!-- ============ 활동 1: 운동 기구 분류 결과표 ============ -->
         <section class="tab-content fade-in-up activity-section" data-tab="0">
-            <div class="card-hover bg-white rounded-3xl shadow-md border-b-8 border-blue-400 p-6 md:p-8">
+            <div id="share-46-a1" class="card-hover bg-white rounded-3xl shadow-md border-b-8 border-blue-400 p-6 md:p-8">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-3xl text-blue-500 shadow-inner wiggle">
                         <i class="fa-solid fa-dumbbell"></i>
@@ -309,6 +310,13 @@
                     </table>
                 </div>
             </div>
+            <div class="mt-4 bg-blue-50 border-2 border-dashed border-blue-300 rounded-2xl p-3 no-print">
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <button onclick="shareSaveImage('share-46-a1','운동기구분류표')" class="inline-flex items-center gap-1 bg-blue-500 text-white font-bold py-2 px-4 rounded-full text-sm shadow hover:bg-blue-600 transition"><i class="fa-solid fa-camera"></i> 사진 저장</button>
+                    <button onclick="shareCopyImage('share-46-a1')" class="inline-flex items-center gap-1 bg-white border-2 border-blue-400 text-blue-600 font-bold py-2 px-4 rounded-full text-sm shadow hover:bg-blue-50 transition"><i class="fa-solid fa-image"></i> 이미지 복사</button>
+                </div>
+                <div id="share-46-a1-share-status" class="text-center text-xs text-blue-600 mt-2 min-h-[1rem]"></div>
+            </div>
         </section>
 
         <!-- Entry Link between sections -->
@@ -336,7 +344,7 @@
 
         <!-- ============ 활동 2: 감정 케어 반응표 ============ -->
         <section class="tab-content fade-in-up activity-section" data-tab="1" style="display:none;">
-            <div class="card-hover bg-white rounded-3xl shadow-md border-b-8 border-green-400 p-6 md:p-8">
+            <div id="share-46-a2" class="card-hover bg-white rounded-3xl shadow-md border-b-8 border-green-400 p-6 md:p-8">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-3xl text-green-500 shadow-inner wiggle">
                         <i class="fa-solid fa-face-smile"></i>
@@ -394,6 +402,13 @@
                     </table>
                 </div>
             </div>
+            <div class="mt-4 bg-green-50 border-2 border-dashed border-green-300 rounded-2xl p-3 no-print">
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <button onclick="shareSaveImage('share-46-a2','감정케어반응표')" class="inline-flex items-center gap-1 bg-green-500 text-white font-bold py-2 px-4 rounded-full text-sm shadow hover:bg-green-600 transition"><i class="fa-solid fa-camera"></i> 사진 저장</button>
+                    <button onclick="shareCopyImage('share-46-a2')" class="inline-flex items-center gap-1 bg-white border-2 border-green-400 text-green-600 font-bold py-2 px-4 rounded-full text-sm shadow hover:bg-green-50 transition"><i class="fa-solid fa-image"></i> 이미지 복사</button>
+                </div>
+                <div id="share-46-a2-share-status" class="text-center text-xs text-green-600 mt-2 min-h-[1rem]"></div>
+            </div>
         </section>
 
         <!-- Entry Link between sections -->
@@ -421,7 +436,7 @@
 
         <!-- ============ 활동 3: 이미지 분류 vs 비디오 감지 비교표 ============ -->
         <section class="tab-content fade-in-up activity-section" data-tab="2" style="display:none;">
-            <div class="card-hover bg-white rounded-3xl shadow-md border-b-8 border-pink-400 p-6 md:p-8">
+            <div id="share-46-a3" class="card-hover bg-white rounded-3xl shadow-md border-b-8 border-pink-400 p-6 md:p-8">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="w-14 h-14 bg-pink-100 rounded-2xl flex items-center justify-center text-3xl text-pink-500 shadow-inner wiggle">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -467,6 +482,13 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="mt-4 bg-pink-50 border-2 border-dashed border-pink-300 rounded-2xl p-3 no-print">
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <button onclick="shareSaveImage('share-46-a3','이미지분류vs비디오감지')" class="inline-flex items-center gap-1 bg-pink-500 text-white font-bold py-2 px-4 rounded-full text-sm shadow hover:bg-pink-600 transition"><i class="fa-solid fa-camera"></i> 사진 저장</button>
+                    <button onclick="shareCopyImage('share-46-a3')" class="inline-flex items-center gap-1 bg-white border-2 border-pink-400 text-pink-600 font-bold py-2 px-4 rounded-full text-sm shadow hover:bg-pink-50 transition"><i class="fa-solid fa-image"></i> 이미지 복사</button>
+                </div>
+                <div id="share-46-a3-share-status" class="text-center text-xs text-pink-600 mt-2 min-h-[1rem]"></div>
             </div>
         </section>
 
@@ -611,7 +633,7 @@
                     </div>
 
                     <!-- 비교표 -->
-                    <div class="mt-8">
+                    <div id="share-46-a4-comp" class="mt-8 bg-white rounded-2xl p-4">
                         <h4 class="text-lg font-bold text-purple-700 mb-3 flex items-center gap-2">
                             <i class="fa-solid fa-scale-balanced"></i> 직접 체험해보고 STT와 TTS를 비교해 봐요!
                         </h4>
@@ -643,6 +665,13 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                    <div class="mt-3 no-print">
+                        <div class="flex flex-wrap gap-2 justify-center">
+                            <button onclick="shareSaveImage('share-46-a4-comp','STT_TTS_비교표')" class="inline-flex items-center gap-1 bg-purple-500 text-white font-bold py-2 px-4 rounded-full text-sm shadow hover:bg-purple-600 transition"><i class="fa-solid fa-camera"></i> 비교표 사진 저장</button>
+                            <button onclick="shareCopyImage('share-46-a4-comp')" class="inline-flex items-center gap-1 bg-white border-2 border-purple-400 text-purple-600 font-bold py-2 px-4 rounded-full text-sm shadow hover:bg-purple-50 transition"><i class="fa-solid fa-image"></i> 비교표 이미지 복사</button>
+                        </div>
+                        <div id="share-46-a4-comp-share-status" class="text-center text-xs text-purple-600 mt-2 min-h-[1rem]"></div>
                     </div>
                 </div>
 
@@ -685,7 +714,8 @@
                     </div>
                 </details>
 
-                <div class="overflow-x-auto mb-8">
+                <div id="share-46-a4-cmd" class="overflow-x-auto mb-3 bg-white rounded-2xl p-3">
+                    <h4 class="text-base font-bold text-orange-600 mb-2 flex items-center gap-2 px-2"><i class="fa-solid fa-microphone"></i> 음성 명령 설계표</h4>
                     <table class="activity-table">
                         <thead>
                             <tr class="bg-orange-500 text-white">
@@ -744,9 +774,16 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="mt-3 mb-8 no-print">
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button onclick="shareSaveImage('share-46-a4-cmd','음성명령설계표')" class="inline-flex items-center gap-1 bg-orange-500 text-white font-bold py-2 px-4 rounded-full text-sm shadow hover:bg-orange-600 transition"><i class="fa-solid fa-camera"></i> 명령표 사진 저장</button>
+                        <button onclick="shareCopyImage('share-46-a4-cmd')" class="inline-flex items-center gap-1 bg-white border-2 border-orange-400 text-orange-600 font-bold py-2 px-4 rounded-full text-sm shadow hover:bg-orange-50 transition"><i class="fa-solid fa-image"></i> 명령표 이미지 복사</button>
+                    </div>
+                    <div id="share-46-a4-cmd-share-status" class="text-center text-xs text-orange-600 mt-2 min-h-[1rem]"></div>
+                </div>
 
                 <!-- Robot Name & Description -->
-                <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border-2 border-dashed border-orange-300">
+                <div id="share-46-a4-name" class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border-2 border-dashed border-orange-300">
                     <h3 class="text-xl font-bold text-orange-600 mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-robot text-2xl"></i> 우리 팀의 AI 음성 로봇
                     </h3>
@@ -764,6 +801,13 @@
                             <textarea class="input-field input-orange text-center" rows="2" placeholder="우리 로봇을 한 줄로 소개해 주세요!" data-key="session46_a4_robotdesc"></textarea>
                         </div>
                     </div>
+                </div>
+                <div class="mt-3 no-print">
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button onclick="shareSaveImage('share-46-a4-name','우리팀_AI음성로봇')" class="inline-flex items-center gap-1 bg-amber-500 text-white font-bold py-2 px-4 rounded-full text-sm shadow hover:bg-amber-600 transition"><i class="fa-solid fa-camera"></i> 로봇 카드 사진 저장</button>
+                        <button onclick="shareCopyImage('share-46-a4-name')" class="inline-flex items-center gap-1 bg-white border-2 border-amber-400 text-amber-600 font-bold py-2 px-4 rounded-full text-sm shadow hover:bg-amber-50 transition"><i class="fa-solid fa-image"></i> 로봇 카드 이미지 복사</button>
+                    </div>
+                    <div id="share-46-a4-name-share-status" class="text-center text-xs text-amber-600 mt-2 min-h-[1rem]"></div>
                 </div>
             </div>
         </section>
@@ -1039,6 +1083,50 @@
             sttFinalText = '';
             document.getElementById('sttResult').textContent = '';
             document.getElementById('sttStatus').textContent = '🧹 결과를 지웠어요.';
+        }
+
+        // ========== 공유 헬퍼 (이미지 저장/이미지 복사) ==========
+        function setShareStatus(targetId, msg, color) {
+            const el = document.getElementById(`${targetId}-share-status`);
+            if (!el) return;
+            el.style.color = color || '#6d28d9';
+            el.textContent = msg;
+            setTimeout(() => { if (el.textContent === msg) el.textContent = ''; }, 4000);
+        }
+        async function captureNode(id, scale = 2) {
+            const node = document.getElementById(id);
+            if (!node || typeof html2canvas === 'undefined') return null;
+            return await html2canvas(node, { scale, backgroundColor: '#ffffff', useCORS: true, logging: false });
+        }
+        async function shareSaveImage(targetId, label) {
+            setShareStatus(targetId, '🖼️ 이미지를 만드는 중...', '#0891b2');
+            try {
+                const canvas = await captureNode(targetId);
+                if (!canvas) { setShareStatus(targetId, '❌ 캡처 실패', '#dc2626'); return; }
+                const a = document.createElement('a');
+                const today = new Date().toISOString().slice(0, 10);
+                a.download = `${label}_${today}.png`;
+                a.href = canvas.toDataURL('image/png');
+                a.click();
+                setShareStatus(targetId, '✅ 사진으로 저장했어요!');
+            } catch (e) { setShareStatus(targetId, '❌ ' + e.message, '#dc2626'); }
+        }
+        async function shareCopyImage(targetId) {
+            setShareStatus(targetId, '📋 이미지 복사 중...', '#0891b2');
+            try {
+                if (!navigator.clipboard || !window.ClipboardItem) {
+                    setShareStatus(targetId, '⚠️ 이 브라우저는 이미지 복사를 지원하지 않아요. (Chrome/Edge 권장)', '#d97706');
+                    return;
+                }
+                const canvas = await captureNode(targetId);
+                if (!canvas) { setShareStatus(targetId, '❌ 캡처 실패', '#dc2626'); return; }
+                canvas.toBlob(async (blob) => {
+                    try {
+                        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                        setShareStatus(targetId, '✅ 이미지를 복사했어요! 다른 곳에 붙여넣기 해보세요.');
+                    } catch (e2) { setShareStatus(targetId, '❌ ' + e2.message, '#dc2626'); }
+                }, 'image/png');
+            } catch (e) { setShareStatus(targetId, '❌ ' + e.message, '#dc2626'); }
         }
 
         // ========== Init ==========
