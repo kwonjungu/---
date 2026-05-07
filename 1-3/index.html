@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body { font-family:'Jua',sans-serif; background-color:#E0F2FE; }
         .card-hover { transition:transform .3s cubic-bezier(.175,.885,.32,1.275),box-shadow .3s; border:1px solid #E5E5E5; box-shadow:0 4px 12px rgba(0,0,0,.07),0 1px 3px rgba(0,0,0,.05); }
@@ -105,7 +106,7 @@
 <main class="max-w-4xl mx-auto">
 <!-- ===== 활동 1: 스타트업 창업 기획서 ===== -->
 <div id="panel1" class="panel active">
-    <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-8 border-yellow-400 mb-6">
+    <section id="share-13-a1" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-8 border-yellow-400 mb-6">
         <h2 class="text-2xl font-bold text-yellow-600 mb-6"><i class="fa-solid fa-building mr-2"></i>스타트업 창업 기획서</h2>
         <div class="space-y-4">
             <div class="bg-yellow-50 rounded-2xl p-4 border border-yellow-100">
@@ -131,12 +132,20 @@
             </div>
         </div>
     </section>
+    <div class="mb-6 bg-yellow-50 border-2 border-dashed border-yellow-300 rounded-2xl p-4 no-print">
+        <p class="text-center text-sm text-yellow-700 font-bold mb-2"><i class="fa-solid fa-share-nodes mr-1"></i>창업 기획서를 사진으로 공유해요!</p>
+        <div class="flex flex-wrap gap-2 justify-center">
+            <button onclick="shareSaveImage('share-13-a1','창업기획서')" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-full text-sm shadow transition"><i class="fa-solid fa-download mr-1"></i>사진 저장</button>
+            <button onclick="shareCopyImage('share-13-a1')" class="bg-white border-2 border-yellow-400 text-yellow-600 font-bold py-2 px-4 rounded-full text-sm shadow transition hover:bg-yellow-50"><i class="fa-solid fa-copy mr-1"></i>이미지 복사</button>
+        </div>
+        <div id="share-13-a1-share-status" class="text-center text-xs text-yellow-600 mt-2 min-h-[1rem]"></div>
+    </div>
     <div class="text-center no-print"><button onclick="completeStep(1);goStep(6)" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition"><i class="fa-solid fa-dice mr-2"></i>역할 뽑기로 이동 <i class="fa-solid fa-arrow-right ml-2"></i></button></div>
 </div>
 
 <!-- ===== 활동 3: 감각기관-센서 비교표 ===== -->
 <div id="panel3" class="panel">
-    <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-8 border-blue-400 mb-6">
+    <section id="share-13-a3" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-8 border-blue-400 mb-6">
         <h2 class="text-2xl font-bold text-blue-600 mb-6"><i class="fa-solid fa-eye mr-2"></i>감각기관과 센서 비교표</h2>
         <div class="overflow-x-auto">
             <table class="w-full text-sm md:text-base">
@@ -150,6 +159,14 @@
             </table>
         </div>
     </section>
+    <div class="mb-6 bg-blue-50 border-2 border-dashed border-blue-300 rounded-2xl p-4 no-print">
+        <p class="text-center text-sm text-blue-700 font-bold mb-2"><i class="fa-solid fa-share-nodes mr-1"></i>비교표를 사진으로 공유해요!</p>
+        <div class="flex flex-wrap gap-2 justify-center">
+            <button onclick="shareSaveImage('share-13-a3','감각기관센서비교표')" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full text-sm shadow transition"><i class="fa-solid fa-download mr-1"></i>사진 저장</button>
+            <button onclick="shareCopyImage('share-13-a3')" class="bg-white border-2 border-blue-400 text-blue-600 font-bold py-2 px-4 rounded-full text-sm shadow transition hover:bg-blue-50"><i class="fa-solid fa-copy mr-1"></i>이미지 복사</button>
+        </div>
+        <div id="share-13-a3-share-status" class="text-center text-xs text-blue-600 mt-2 min-h-[1rem]"></div>
+    </div>
     <!-- 엔트리 바로가기 -->
     <div class="text-center mb-6 no-print"><a href="https://playentry.org/" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-green-400 to-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition"><i class="fa-solid fa-code"></i>엔트리 바로가기<i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a></div>
     <div class="text-center no-print flex justify-center gap-3">
@@ -267,7 +284,7 @@
                 <p class="text-gray-700">앞에 있는 장애물까지의 거리를 숫자로 말하기</p>
             </div>
         </div>
-        <div class="bg-white rounded-2xl p-6 shadow-md border-b-8 border-green-400">
+        <div id="share-13-a2" class="bg-white rounded-2xl p-6 shadow-md border-b-8 border-green-400">
             <h3 class="text-lg font-bold text-green-600 mb-3"><i class="fa-solid fa-paintbrush mr-1"></i>센서 → 프로세서 → 모터 관계를 그림으로 그려봐요!</h3>
             <p class="text-sm text-gray-500 mb-3">아래 도구로 자유롭게 그려보세요. 도형을 만들 땐 캔버스 위에서 <b>드래그</b>!</p>
             <!-- Toolbar -->
@@ -303,6 +320,14 @@
             </div>
         </div>
     </section>
+    <div class="mb-6 bg-green-50 border-2 border-dashed border-green-300 rounded-2xl p-4 no-print">
+        <p class="text-center text-sm text-green-700 font-bold mb-2"><i class="fa-solid fa-share-nodes mr-1"></i>그림을 사진으로 공유해요!</p>
+        <div class="flex flex-wrap gap-2 justify-center">
+            <button onclick="shareSaveImage('share-13-a2','블라인드봇그림')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full text-sm shadow transition"><i class="fa-solid fa-download mr-1"></i>사진 저장</button>
+            <button onclick="shareCopyImage('share-13-a2')" class="bg-white border-2 border-green-400 text-green-600 font-bold py-2 px-4 rounded-full text-sm shadow transition hover:bg-green-50"><i class="fa-solid fa-copy mr-1"></i>이미지 복사</button>
+        </div>
+        <div id="share-13-a2-share-status" class="text-center text-xs text-green-600 mt-2 min-h-[1rem]"></div>
+    </div>
     <div class="text-center no-print flex justify-center gap-3">
         <button onclick="goStep(6)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-full text-lg transition"><i class="fa-solid fa-arrow-left mr-1"></i>역할 뽑기</button>
         <button onclick="completeStep(2);goStep(3)" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition">활동 3으로 <i class="fa-solid fa-arrow-right ml-1"></i></button>
@@ -335,7 +360,7 @@
 
 <!-- ===== 활동 5: 교실 환경 지킴이 설계서 ===== -->
 <div id="panel5" class="panel">
-    <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-8 border-pink-400 mb-6">
+    <section id="share-13-a5" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-b-8 border-pink-400 mb-6">
         <h2 class="text-2xl font-bold text-pink-600 mb-2"><i class="fa-solid fa-gears mr-2"></i>교실 환경 지킴이 설계서</h2>
         <p class="text-gray-500 mb-6">센서와 출력 장치를 조합하여 교실 환경 지킴이를 설계해보세요!</p>
         <div class="space-y-5">
@@ -385,6 +410,14 @@
             <input data-key="rule" type="text" placeholder="예: 어둡고 조용하면 선풍기를 켜고, 사람이 오면 멈춘다!" class="w-full px-4 py-3 rounded-xl border-2 border-pink-200 focus:border-pink-400 focus:bg-pink-50 outline-none text-lg">
         </div>
     </section>
+    <div class="mb-6 bg-pink-50 border-2 border-dashed border-pink-300 rounded-2xl p-4 no-print">
+        <p class="text-center text-sm text-pink-700 font-bold mb-2"><i class="fa-solid fa-share-nodes mr-1"></i>설계서를 사진으로 공유해요!</p>
+        <div class="flex flex-wrap gap-2 justify-center">
+            <button onclick="shareSaveImage('share-13-a5','환경지킴이설계서')" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full text-sm shadow transition"><i class="fa-solid fa-download mr-1"></i>사진 저장</button>
+            <button onclick="shareCopyImage('share-13-a5')" class="bg-white border-2 border-pink-400 text-pink-600 font-bold py-2 px-4 rounded-full text-sm shadow transition hover:bg-pink-50"><i class="fa-solid fa-copy mr-1"></i>이미지 복사</button>
+        </div>
+        <div id="share-13-a5-share-status" class="text-center text-xs text-pink-600 mt-2 min-h-[1rem]"></div>
+    </div>
     <div class="text-center mb-6 no-print"><a href="https://playentry.org/" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-green-400 to-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition"><i class="fa-solid fa-code"></i>엔트리 바로가기<i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a></div>
     <div class="text-center no-print flex justify-center gap-3">
         <button onclick="goStep(4)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-full text-lg transition"><i class="fa-solid fa-arrow-left mr-1"></i>활동 4</button>
@@ -596,6 +629,49 @@ function drawRoles(){
             showToast('🎉 역할 배정 완료!');
         }
     },80);
+}
+
+// ========== 공유 헬퍼 ==========
+function setShareStatus(targetId, msg, color) {
+    const el = document.getElementById(`${targetId}-share-status`);
+    if (!el) return;
+    el.style.color = color || '#6d28d9';
+    el.textContent = msg;
+    setTimeout(() => { if (el.textContent === msg) el.textContent = ''; }, 4000);
+}
+async function captureNode(id, scale = 2) {
+    const node = document.getElementById(id);
+    if (!node || typeof html2canvas === 'undefined') return null;
+    return await html2canvas(node, { scale, backgroundColor: '#ffffff', useCORS: true, logging: false });
+}
+async function shareSaveImage(targetId, label) {
+    setShareStatus(targetId, '🖼️ 이미지를 만드는 중...', '#0891b2');
+    try {
+        const canvas = await captureNode(targetId);
+        if (!canvas) { setShareStatus(targetId, '❌ 캡처 실패', '#dc2626'); return; }
+        const a = document.createElement('a');
+        a.download = `${label}_${new Date().toISOString().slice(0,10)}.png`;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+        setShareStatus(targetId, '✅ 사진으로 저장했어요!');
+    } catch (e) { setShareStatus(targetId, '❌ ' + e.message, '#dc2626'); }
+}
+async function shareCopyImage(targetId) {
+    setShareStatus(targetId, '📋 이미지 복사 중...', '#0891b2');
+    try {
+        if (!navigator.clipboard || !window.ClipboardItem) {
+            setShareStatus(targetId, '⚠️ 이 브라우저는 이미지 복사를 지원하지 않아요. (Chrome/Edge 권장)', '#d97706');
+            return;
+        }
+        const canvas = await captureNode(targetId);
+        if (!canvas) { setShareStatus(targetId, '❌ 캡처 실패', '#dc2626'); return; }
+        canvas.toBlob(async (blob) => {
+            try {
+                await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                setShareStatus(targetId, '✅ 이미지를 복사했어요!');
+            } catch (e2) { setShareStatus(targetId, '❌ ' + e2.message, '#dc2626'); }
+        }, 'image/png');
+    } catch (e) { setShareStatus(targetId, '❌ ' + e.message, '#dc2626'); }
 }
 </script>
 </body>
