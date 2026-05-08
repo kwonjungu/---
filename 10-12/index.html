@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
     <style>
         body {
             font-family: 'Jua', sans-serif;
@@ -83,9 +84,29 @@
         input[type="text"], input[type="number"], textarea, select {
             background-color: #ffffff !important;
         }
+        /* ===== 우선순위 정하기 ===== */
+        .priority-slot { min-height: 60px; border: 3px dashed #CBD5E1; transition: all 0.3s; cursor: pointer; }
+        .priority-slot:hover { border-color: #94a3b8; }
+        .priority-slot.filled { border-style: solid; border-color: #6366F1; background: #EEF2FF; }
+        .tech-card { cursor: grab; user-select: none; transition: all 0.2s; }
+        .tech-card:active { cursor: grabbing; transform: scale(0.95); }
+        .tech-card.placed { opacity: 0.35; pointer-events: none; }
+        .tech-card.disabled { opacity: 0.45; pointer-events: none; }
+
+        /* ===== 펼치기/접기 (details) ===== */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details > summary .chev { transition: transform 0.25s ease; }
+        details[open] > summary .chev { transform: rotate(180deg); }
+
+        /* ===== 그림판 ===== */
+        .dtool-btn.active { background-color: #DCFCE7; border-color: #4ADE80; color: #166534; }
+
         @media print {
             .no-print { display: none !important; }
             body { background-image: none; }
+            details:not([open]) > div { display: block !important; }
+            details > summary { display: none !important; }
         }
     </style>
 </head>
@@ -274,6 +295,128 @@
 
         <hr class="border-2 border-dashed border-blue-200">
 
+        <!-- 3-1. 알고리즘 우선순위 정하기 (펼치기/접기) -->
+        <section>
+            <details id="priority-details" class="bg-white rounded-3xl shadow-lg border-4 border-violet-100 overflow-hidden">
+                <summary class="cursor-pointer select-none px-6 md:px-8 py-5 hover:bg-violet-50 transition flex items-center gap-3">
+                    <i class="fa-solid fa-ranking-star text-3xl text-violet-500"></i>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-700">3-1. 알고리즘 우선순위 정하기</h2>
+                    <span class="ml-auto text-violet-500 chev"><i class="fa-solid fa-chevron-down text-2xl"></i></span>
+                </summary>
+                <div class="px-6 md:px-8 pb-8">
+                    <p class="text-center text-gray-500 text-base md:text-lg mb-6">선택한 미션을 가지고 로봇이 <b>어떤 순서</b>로 동작하게 할지 정해보세요!</p>
+
+                    <div id="share-1012-priority">
+                        <!-- 미션 카드 풀 -->
+                        <div class="bg-violet-50 rounded-2xl p-4 mb-6 border-2 border-violet-100">
+                            <p class="text-sm text-violet-700 font-bold mb-3"><i class="fa-solid fa-hand-pointer mr-1"></i>아래 미션 카드를 눌러 순위를 정해요 (먼저 선택 미션을 골라야 카드가 나타나요!)</p>
+                            <div class="flex flex-wrap gap-2 justify-center min-h-[3rem]" id="priorityPool">
+                                <span id="priorityPool-empty" class="text-gray-400 text-sm py-2">⬆ 위에서 선택 미션을 먼저 골라주세요</span>
+                            </div>
+                        </div>
+
+                        <!-- 우선순위 슬롯 -->
+                        <div class="space-y-3 max-w-md mx-auto" id="prioritySlots">
+                            <div class="priority-slot rounded-xl p-3 bg-white flex items-center gap-3" onclick="removeFromPrioritySlot(this)">
+                                <span class="font-bold text-violet-500 w-16 text-center text-lg">1순위</span>
+                                <span class="slot-content text-gray-400">카드를 눌러 채워주세요</span>
+                            </div>
+                            <div class="priority-slot rounded-xl p-3 bg-white flex items-center gap-3" onclick="removeFromPrioritySlot(this)">
+                                <span class="font-bold text-violet-500 w-16 text-center text-lg">2순위</span>
+                                <span class="slot-content text-gray-400">카드를 눌러 채워주세요</span>
+                            </div>
+                            <div class="priority-slot rounded-xl p-3 bg-white flex items-center gap-3" onclick="removeFromPrioritySlot(this)">
+                                <span class="font-bold text-violet-500 w-16 text-center text-lg">3순위</span>
+                                <span class="slot-content text-gray-400">카드를 눌러 채워주세요</span>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4 no-print">
+                            <button onclick="resetPriority()" class="text-sm text-gray-500 hover:text-gray-800 font-bold px-4 py-2 bg-gray-100 rounded-full transition"><i class="fa-solid fa-arrow-rotate-left"></i> 순서 다시 정하기</button>
+                        </div>
+
+                        <!-- 이유 적기 -->
+                        <div class="mt-6 max-w-2xl mx-auto">
+                            <label class="block text-base font-bold text-violet-600 mb-2"><i class="fa-solid fa-comment-dots mr-1"></i>이렇게 정한 이유는 무엇인가요?</label>
+                            <textarea id="1012-priority-reason" rows="3" placeholder="예: 사람이 가까이 와야 다른 기능이 작동할 수 있으니까 가까이 감지를 1순위로..." class="w-full px-4 py-3 rounded-2xl border-2 border-violet-100 focus:border-violet-400 focus:bg-violet-50 outline-none transition-all text-base resize-none bg-white"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-violet-50 border-2 border-dashed border-violet-300 rounded-2xl p-4 no-print">
+                        <p class="text-center text-sm text-violet-700 font-bold mb-2"><i class="fa-solid fa-share-nodes mr-1"></i>우선순위 결과를 사진으로 공유해요!</p>
+                        <div class="flex flex-wrap gap-2 justify-center">
+                            <button onclick="shareSaveImage('share-1012-priority','우선순위')" class="bg-violet-500 hover:bg-violet-600 text-white font-bold py-2 px-4 rounded-full text-sm shadow transition"><i class="fa-solid fa-download mr-1"></i>사진 저장</button>
+                            <button onclick="shareCopyImage('share-1012-priority')" class="bg-white border-2 border-violet-400 text-violet-600 font-bold py-2 px-4 rounded-full text-sm shadow transition hover:bg-violet-50"><i class="fa-solid fa-copy mr-1"></i>이미지 복사</button>
+                        </div>
+                        <div id="share-1012-priority-share-status" class="text-center text-xs text-violet-600 mt-2 min-h-[1rem]"></div>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <hr class="border-2 border-dashed border-blue-200">
+
+        <!-- 3-2. 자유 그림판 (펼치기/접기) -->
+        <section>
+            <details id="canvas-details" class="bg-white rounded-3xl shadow-lg border-4 border-green-100 overflow-hidden">
+                <summary class="cursor-pointer select-none px-6 md:px-8 py-5 hover:bg-green-50 transition flex items-center gap-3">
+                    <i class="fa-solid fa-paintbrush text-3xl text-green-500"></i>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-700">3-2. 자유 그림판으로 흐름도 그리기</h2>
+                    <span class="ml-auto text-green-500 chev"><i class="fa-solid fa-chevron-down text-2xl"></i></span>
+                </summary>
+                <div class="px-6 md:px-8 pb-8">
+                    <p class="text-center text-gray-500 text-base md:text-lg mb-6">우선순위 흐름을 자유롭게 그려보거나 우리 로봇 모습을 스케치해 보세요!</p>
+
+                    <div id="share-1012-canvas">
+                        <!-- 그림판 도구 -->
+                        <div class="no-print flex flex-wrap gap-2 mb-3 bg-gray-50 p-3 rounded-xl border border-gray-200">
+                            <button data-dtool12="select" class="dtool-btn active bg-white border-2 border-green-400 text-green-700 px-3 py-2 rounded-lg font-bold text-sm hover:bg-green-50 transition" title="선택/이동"><i class="fa-solid fa-arrow-pointer mr-1"></i>선택</button>
+                            <button data-dtool12="pen" class="dtool-btn bg-white border-2 border-gray-300 text-gray-700 px-3 py-2 rounded-lg font-bold text-sm hover:bg-green-50 transition" title="자유롭게 그리기"><i class="fa-solid fa-pen mr-1"></i>펜</button>
+                            <button data-dtool12="rect" class="dtool-btn bg-white border-2 border-gray-300 text-gray-700 px-3 py-2 rounded-lg font-bold text-sm hover:bg-green-50 transition" title="사각형 (드래그)"><i class="fa-regular fa-square mr-1"></i>네모</button>
+                            <button data-dtool12="circle" class="dtool-btn bg-white border-2 border-gray-300 text-gray-700 px-3 py-2 rounded-lg font-bold text-sm hover:bg-green-50 transition" title="원 (드래그)"><i class="fa-regular fa-circle mr-1"></i>원</button>
+                            <button data-dtool12="arrow" class="dtool-btn bg-white border-2 border-gray-300 text-gray-700 px-3 py-2 rounded-lg font-bold text-sm hover:bg-green-50 transition" title="화살표 (드래그)"><i class="fa-solid fa-arrow-right-long mr-1"></i>화살표</button>
+                            <button data-dtool12="text" class="dtool-btn bg-white border-2 border-gray-300 text-gray-700 px-3 py-2 rounded-lg font-bold text-sm hover:bg-green-50 transition" title="텍스트 (클릭)"><i class="fa-solid fa-font mr-1"></i>글자</button>
+                            <span class="inline-flex items-center gap-1 ml-1">
+                                <label class="text-xs text-gray-600">색</label>
+                                <input id="dColor12" type="color" value="#10b981" class="w-9 h-9 p-0 rounded cursor-pointer border border-gray-300">
+                            </span>
+                            <span class="inline-flex items-center gap-1 ml-1">
+                                <label class="text-xs text-gray-600">굵기</label>
+                                <input id="dWidth12" type="range" min="1" max="20" value="3" class="w-24">
+                                <span id="dWidthLabel12" class="text-xs text-gray-600 w-6 text-right">3</span>
+                            </span>
+                            <button id="dUndoBtn12" class="ml-auto bg-white border-2 border-gray-300 text-gray-700 px-3 py-2 rounded-lg font-bold text-sm hover:bg-yellow-50 transition" title="되돌리기"><i class="fa-solid fa-rotate-left mr-1"></i>되돌리기</button>
+                            <button id="dDelBtn12" class="bg-white border-2 border-gray-300 text-gray-700 px-3 py-2 rounded-lg font-bold text-sm hover:bg-orange-50 transition" title="선택한 것 삭제"><i class="fa-solid fa-trash mr-1"></i>선택 삭제</button>
+                            <button id="dClearBtn12" class="bg-white border-2 border-red-300 text-red-600 px-3 py-2 rounded-lg font-bold text-sm hover:bg-red-50 transition" title="모두 지우기"><i class="fa-solid fa-broom mr-1"></i>전체 지우기</button>
+                            <button id="dSaveBtn12" class="bg-white border-2 border-blue-300 text-blue-600 px-3 py-2 rounded-lg font-bold text-sm hover:bg-blue-50 transition" title="이미지로 저장"><i class="fa-solid fa-download mr-1"></i>이미지 저장</button>
+                        </div>
+
+                        <!-- 캔버스 -->
+                        <div class="border-2 border-dashed border-green-300 rounded-xl bg-white overflow-auto">
+                            <canvas id="freeDrawCanvas" width="900" height="500" class="block"></canvas>
+                        </div>
+
+                        <!-- 메모 -->
+                        <div class="mt-4">
+                            <label class="block text-sm font-bold text-green-600 mb-2"><i class="fa-solid fa-pencil mr-1"></i>그림 옆에 메모하기 (선택사항)</label>
+                            <textarea id="1012-canvas-memo" rows="2" placeholder="그림에 대한 짧은 설명이나 아이디어를 적어보세요!" class="w-full px-4 py-3 rounded-xl border-2 border-green-200 focus:border-green-400 focus:bg-green-50 outline-none text-base resize-none bg-white"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 bg-green-50 border-2 border-dashed border-green-300 rounded-2xl p-4 no-print">
+                        <p class="text-center text-sm text-green-700 font-bold mb-2"><i class="fa-solid fa-share-nodes mr-1"></i>그림을 사진으로 공유해요!</p>
+                        <div class="flex flex-wrap gap-2 justify-center">
+                            <button onclick="shareSaveImage('share-1012-canvas','자유그림판')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full text-sm shadow transition"><i class="fa-solid fa-download mr-1"></i>사진 저장</button>
+                            <button onclick="shareCopyImage('share-1012-canvas')" class="bg-white border-2 border-green-400 text-green-600 font-bold py-2 px-4 rounded-full text-sm shadow transition hover:bg-green-50"><i class="fa-solid fa-copy mr-1"></i>이미지 복사</button>
+                        </div>
+                        <div id="share-1012-canvas-share-status" class="text-center text-xs text-green-600 mt-2 min-h-[1rem]"></div>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <hr class="border-2 border-dashed border-blue-200">
+
         <!-- 4. 로봇 브랜딩 섹션 -->
         <section>
             <div class="flex items-center justify-center gap-3 mb-4">
@@ -337,6 +480,31 @@
     <div id="toast"></div>
 
     <script>
+        // ==================== 미션 메타데이터 ====================
+        // 공통 미션 + 선택 미션 카드 정보 (우선순위 풀에 사용)
+        const COMMON_MISSION = { key: 'approach', name: '가까이 가면 켜지기', icon: 'fa-person-rays', color: 'orange' };
+        const MISSION_META = {
+            squat:   { name: '스쿼트 코치',     icon: 'fa-dumbbell',         color: 'teal' },
+            sleep:   { name: '바른 자세 수면',   icon: 'fa-bed',              color: 'indigo' },
+            water:   { name: '물 섭취 알림',     icon: 'fa-glass-water',      color: 'cyan' },
+            turtle:  { name: '거북목 경보기',    icon: 'fa-user-doctor',      color: 'emerald' },
+            alarm:   { name: '아침 알람',        icon: 'fa-clock',            color: 'yellow' },
+            cheer:   { name: '응원 로봇',        icon: 'fa-hands-clapping',   color: 'rose' },
+            eyedrop: { name: '안약 알리미',      icon: 'fa-eye-dropper',      color: 'sky' },
+            brush:   { name: '양치 타이머',      icon: 'fa-tooth',            color: 'slate' },
+        };
+        const COLOR_CLASS = {
+            orange:  { bg: 'bg-orange-100',  border: 'border-orange-300',  text: 'text-orange-800'  },
+            teal:    { bg: 'bg-teal-100',    border: 'border-teal-300',    text: 'text-teal-800'    },
+            indigo:  { bg: 'bg-indigo-100',  border: 'border-indigo-300',  text: 'text-indigo-800'  },
+            cyan:    { bg: 'bg-cyan-100',    border: 'border-cyan-300',    text: 'text-cyan-800'    },
+            emerald: { bg: 'bg-emerald-100', border: 'border-emerald-300', text: 'text-emerald-800' },
+            yellow:  { bg: 'bg-yellow-100',  border: 'border-yellow-300',  text: 'text-yellow-800'  },
+            rose:    { bg: 'bg-rose-100',    border: 'border-rose-300',    text: 'text-rose-800'    },
+            sky:     { bg: 'bg-sky-100',     border: 'border-sky-300',     text: 'text-sky-800'     },
+            slate:   { bg: 'bg-slate-100',   border: 'border-slate-300',   text: 'text-slate-800'   },
+        };
+
         // ==================== 미션 선택 로직 ====================
         let selectedMissions = [];
         const maxSelection = 2;
@@ -359,6 +527,7 @@
             }
             localStorage.setItem('1012-missions', JSON.stringify(selectedMissions));
             updateCounter();
+            refreshPriorityPool();
         }
 
         function updateCounter() {
@@ -388,6 +557,281 @@
                 });
                 updateCounter();
             }
+        }
+
+        // ==================== 우선순위 정하기 ====================
+        let priorityQueue = [];
+
+        function getMissionLabel(key) {
+            if (key === COMMON_MISSION.key) return COMMON_MISSION;
+            return MISSION_META[key];
+        }
+
+        function refreshPriorityPool() {
+            const pool = document.getElementById('priorityPool');
+            const empty = document.getElementById('priorityPool-empty');
+            if (!pool) return;
+
+            // 기존 카드 제거(empty 라벨은 보존)
+            pool.querySelectorAll('.tech-card').forEach(c => c.remove());
+
+            // 사용 가능한 미션: 공통 + 선택된 것들
+            const available = [COMMON_MISSION.key, ...selectedMissions];
+
+            available.forEach(key => {
+                const meta = getMissionLabel(key);
+                if (!meta) return;
+                const c = COLOR_CLASS[meta.color] || COLOR_CLASS.indigo;
+                const card = document.createElement('div');
+                card.className = `tech-card ${c.bg} rounded-xl px-5 py-3 border-2 ${c.border} font-bold ${c.text} shadow-sm`;
+                card.dataset.tech = key;
+                card.innerHTML = `<i class="fa-solid ${meta.icon} mr-1"></i>${meta.name}`;
+                card.addEventListener('click', () => placeTech(card));
+                if (priorityQueue.includes(key)) card.classList.add('placed');
+                pool.appendChild(card);
+            });
+
+            // 사용 가능한 카드 중 슬롯에 없는데 선택 미션에서 사라진 것을 정리
+            const validKeys = new Set(available);
+            document.querySelectorAll('#prioritySlots .priority-slot').forEach(slot => {
+                const content = slot.querySelector('.slot-content');
+                const techName = content.dataset.techKey;
+                if (techName && !validKeys.has(techName)) {
+                    slot.classList.remove('filled');
+                    content.innerHTML = '카드를 눌러 채워주세요';
+                    content.dataset.techKey = '';
+                }
+            });
+            priorityQueue = priorityQueue.filter(k => validKeys.has(k));
+            localStorage.setItem('1012-priority-queue', JSON.stringify(priorityQueue));
+
+            if (empty) empty.style.display = (available.length <= 1 && selectedMissions.length === 0) ? '' : 'none';
+        }
+
+        function placeTech(card, isRestoring = false) {
+            if (card.classList.contains('placed')) return;
+            const slots = document.querySelectorAll('#prioritySlots .priority-slot');
+            for (let slot of slots) {
+                if (!slot.classList.contains('filled')) {
+                    const meta = getMissionLabel(card.dataset.tech);
+                    if (!meta) return;
+                    card.classList.add('placed');
+                    slot.classList.add('filled');
+                    const content = slot.querySelector('.slot-content');
+                    content.innerHTML = `<span class="font-bold text-violet-700 text-lg"><i class="fa-solid ${meta.icon} mr-2"></i>${meta.name}</span>`;
+                    content.dataset.techKey = card.dataset.tech;
+                    priorityQueue.push(card.dataset.tech);
+                    localStorage.setItem('1012-priority-queue', JSON.stringify(priorityQueue));
+                    if (!isRestoring && priorityQueue.length === slots.length) {
+                        showToast('우선순위 완성! 이제 그림으로 그려봐요.');
+                    }
+                    return;
+                }
+            }
+        }
+
+        function removeFromPrioritySlot(slot) {
+            if (!slot.classList.contains('filled')) return;
+            const content = slot.querySelector('.slot-content');
+            const key = content.dataset.techKey;
+            slot.classList.remove('filled');
+            content.innerHTML = '카드를 눌러 채워주세요';
+            content.dataset.techKey = '';
+            document.querySelectorAll('#priorityPool .tech-card').forEach(c => {
+                if (c.dataset.tech === key) c.classList.remove('placed');
+            });
+            priorityQueue = priorityQueue.filter(t => t !== key);
+            localStorage.setItem('1012-priority-queue', JSON.stringify(priorityQueue));
+        }
+
+        function resetPriority() {
+            document.querySelectorAll('#prioritySlots .priority-slot').forEach(s => {
+                s.classList.remove('filled');
+                const c = s.querySelector('.slot-content');
+                c.innerHTML = '카드를 눌러 채워주세요';
+                c.dataset.techKey = '';
+            });
+            document.querySelectorAll('#priorityPool .tech-card').forEach(c => c.classList.remove('placed'));
+            priorityQueue = [];
+            localStorage.removeItem('1012-priority-queue');
+            showToast('순서가 초기화 되었습니다.');
+        }
+
+        function restorePriority() {
+            const saved = localStorage.getItem('1012-priority-queue');
+            if (!saved) return;
+            try {
+                const queue = JSON.parse(saved);
+                queue.forEach(key => {
+                    const card = document.querySelector(`#priorityPool .tech-card[data-tech="${key}"]`);
+                    if (card) placeTech(card, true);
+                });
+            } catch (e) {}
+        }
+
+        // ==================== 자유 그림판 (Fabric.js) ====================
+        let drawCanvas12 = null;
+        const DRAW_KEY_12 = '1012-drawing';
+
+        function initDrawCanvas12() {
+            if (drawCanvas12 || typeof fabric === 'undefined') return;
+            const el = document.getElementById('freeDrawCanvas');
+            if (!el) return;
+            drawCanvas12 = new fabric.Canvas('freeDrawCanvas', { backgroundColor: '#ffffff', isDrawingMode: false, preserveObjectStacking: true });
+            drawCanvas12.freeDrawingBrush.color = '#10b981';
+            drawCanvas12.freeDrawingBrush.width = 3;
+
+            let activeTool = 'select';
+            let isDown = false, startX = 0, startY = 0, curShape = null;
+            const colorEl = document.getElementById('dColor12');
+            const widthEl = document.getElementById('dWidth12');
+            const widthLabel = document.getElementById('dWidthLabel12');
+            const getColor = () => colorEl.value;
+            const getWidth = () => parseInt(widthEl.value, 10) || 3;
+
+            function setActiveTool(t) {
+                activeTool = t;
+                document.querySelectorAll('.dtool-btn[data-dtool12]').forEach(b => {
+                    const on = b.dataset.dtool12 === t;
+                    b.classList.toggle('active', on);
+                    b.classList.toggle('border-green-400', on);
+                    b.classList.toggle('text-green-700', on);
+                    b.classList.toggle('border-gray-300', !on);
+                    b.classList.toggle('text-gray-700', !on);
+                });
+                drawCanvas12.isDrawingMode = (t === 'pen');
+                drawCanvas12.selection = (t === 'select');
+                drawCanvas12.defaultCursor = (t === 'select') ? 'default' : 'crosshair';
+                drawCanvas12.hoverCursor = (t === 'select') ? 'move' : 'crosshair';
+                drawCanvas12.skipTargetFind = (t !== 'select' && t !== 'text');
+                drawCanvas12.forEachObject(o => { o.selectable = (t === 'select'); });
+            }
+
+            document.querySelectorAll('.dtool-btn[data-dtool12]').forEach(b => {
+                b.addEventListener('click', () => setActiveTool(b.dataset.dtool12));
+            });
+            colorEl.addEventListener('input', () => {
+                drawCanvas12.freeDrawingBrush.color = getColor();
+                const obj = drawCanvas12.getActiveObject();
+                if (obj) {
+                    if (obj.type === 'i-text' || obj.type === 'text') { obj.set('fill', getColor()); }
+                    else if (obj.type === 'group') { obj.getObjects().forEach(o => { if (o.stroke) o.set('stroke', getColor()); if (o.fill && o.type === 'triangle') o.set('fill', getColor()); }); }
+                    else { obj.set('stroke', getColor()); }
+                    drawCanvas12.renderAll(); saveDrawing12();
+                }
+            });
+            widthEl.addEventListener('input', () => {
+                widthLabel.textContent = getWidth();
+                drawCanvas12.freeDrawingBrush.width = getWidth();
+                const obj = drawCanvas12.getActiveObject();
+                if (obj && obj.set) {
+                    if (obj.type === 'group') { obj.getObjects().forEach(o => { if (o.strokeWidth) o.set('strokeWidth', getWidth()); }); }
+                    else if (obj.strokeWidth !== undefined) { obj.set('strokeWidth', getWidth()); }
+                    drawCanvas12.renderAll(); saveDrawing12();
+                }
+            });
+            document.getElementById('dUndoBtn12').addEventListener('click', () => {
+                const objs = drawCanvas12.getObjects();
+                if (objs.length) { drawCanvas12.remove(objs[objs.length - 1]); saveDrawing12(); }
+            });
+            document.getElementById('dDelBtn12').addEventListener('click', () => {
+                const active = drawCanvas12.getActiveObjects();
+                if (active.length) { active.forEach(o => drawCanvas12.remove(o)); drawCanvas12.discardActiveObject(); drawCanvas12.renderAll(); saveDrawing12(); }
+            });
+            document.getElementById('dClearBtn12').addEventListener('click', () => {
+                if (!confirm('그림을 모두 지울까요?')) return;
+                drawCanvas12.clear(); drawCanvas12.backgroundColor = '#ffffff'; drawCanvas12.renderAll(); saveDrawing12();
+            });
+            document.getElementById('dSaveBtn12').addEventListener('click', () => {
+                const url = drawCanvas12.toDataURL({ format: 'png', quality: 1 });
+                const a = document.createElement('a'); a.download = '자유그림판.png'; a.href = url; a.click();
+            });
+
+            function makeArrow(x1, y1, x2, y2) {
+                const color = getColor(), w = getWidth();
+                const line = new fabric.Line([x1, y1, x2, y2], { stroke: color, strokeWidth: w, selectable: false, evented: false, originX: 'center', originY: 'center' });
+                const angle = Math.atan2(y2 - y1, x2 - x1);
+                const headSize = 10 + w * 2;
+                const head = new fabric.Triangle({ left: x2, top: y2, width: headSize, height: headSize, fill: color, angle: angle * 180 / Math.PI + 90, originX: 'center', originY: 'center', selectable: false, evented: false });
+                return new fabric.Group([line, head], { left: Math.min(x1, x2), top: Math.min(y1, y2) });
+            }
+
+            drawCanvas12.on('mouse:down', opt => {
+                if (activeTool === 'select' || activeTool === 'pen') return;
+                const p = drawCanvas12.getPointer(opt.e); startX = p.x; startY = p.y; isDown = true;
+                if (activeTool === 'text') {
+                    const t = new fabric.IText('텍스트', { left: startX, top: startY, fontSize: 24, fill: getColor(), fontFamily: 'Jua, sans-serif' });
+                    drawCanvas12.add(t); drawCanvas12.setActiveObject(t); t.enterEditing(); t.selectAll();
+                    isDown = false; saveDrawing12(); return;
+                }
+                if (activeTool === 'rect') {
+                    curShape = new fabric.Rect({ left: startX, top: startY, width: 1, height: 1, fill: 'transparent', stroke: getColor(), strokeWidth: getWidth(), selectable: false });
+                    drawCanvas12.add(curShape);
+                } else if (activeTool === 'circle') {
+                    curShape = new fabric.Ellipse({ left: startX, top: startY, rx: 1, ry: 1, fill: 'transparent', stroke: getColor(), strokeWidth: getWidth(), selectable: false });
+                    drawCanvas12.add(curShape);
+                } else if (activeTool === 'arrow') {
+                    curShape = new fabric.Line([startX, startY, startX, startY], { stroke: getColor(), strokeWidth: getWidth(), selectable: false, evented: false });
+                    drawCanvas12.add(curShape);
+                }
+            });
+            drawCanvas12.on('mouse:move', opt => {
+                if (!isDown || !curShape) return;
+                const p = drawCanvas12.getPointer(opt.e);
+                if (activeTool === 'rect') {
+                    curShape.set({ width: Math.abs(p.x - startX), height: Math.abs(p.y - startY), left: Math.min(startX, p.x), top: Math.min(startY, p.y) });
+                } else if (activeTool === 'circle') {
+                    curShape.set({ rx: Math.abs(p.x - startX) / 2, ry: Math.abs(p.y - startY) / 2, left: Math.min(startX, p.x), top: Math.min(startY, p.y) });
+                } else if (activeTool === 'arrow') {
+                    curShape.set({ x2: p.x, y2: p.y });
+                }
+                drawCanvas12.renderAll();
+            });
+            drawCanvas12.on('mouse:up', () => {
+                if (!isDown) return;
+                isDown = false;
+                if (curShape) {
+                    if (activeTool === 'arrow') {
+                        const x1 = curShape.x1, y1 = curShape.y1, x2 = curShape.x2, y2 = curShape.y2;
+                        drawCanvas12.remove(curShape);
+                        if (Math.hypot(x2 - x1, y2 - y1) > 5) {
+                            const arr = makeArrow(x1, y1, x2, y2);
+                            drawCanvas12.add(arr);
+                        }
+                    } else {
+                        if ((curShape.width || 0) < 3 && (curShape.height || 0) < 3 && (curShape.rx || 0) < 2) { drawCanvas12.remove(curShape); }
+                        else { curShape.set({ selectable: false }); }
+                    }
+                }
+                curShape = null;
+                saveDrawing12();
+            });
+            drawCanvas12.on('path:created', saveDrawing12);
+            drawCanvas12.on('object:modified', saveDrawing12);
+            setActiveTool('select');
+            loadDrawing12();
+        }
+        function saveDrawing12() {
+            if (!drawCanvas12) return;
+            try { localStorage.setItem(DRAW_KEY_12, JSON.stringify(drawCanvas12.toJSON())); } catch (e) {}
+        }
+        function loadDrawing12() {
+            if (!drawCanvas12) return;
+            const raw = localStorage.getItem(DRAW_KEY_12);
+            if (!raw) return;
+            try { drawCanvas12.loadFromJSON(raw, () => { drawCanvas12.forEachObject(o => { o.selectable = true; }); drawCanvas12.renderAll(); }); } catch (e) {}
+        }
+
+        // ==================== 펼침 상태 저장 ====================
+        function bindDetailsToggle(id, key) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const saved = localStorage.getItem(key);
+            if (saved === 'open') el.open = true;
+            el.addEventListener('toggle', () => {
+                localStorage.setItem(key, el.open ? 'open' : 'closed');
+                if (id === 'canvas-details' && el.open) setTimeout(initDrawCanvas12, 50);
+            });
         }
 
         // ==================== 토스트 알림 ====================
@@ -469,6 +913,12 @@
                 selectedMissions = [];
                 localStorage.removeItem('1012-missions');
                 updateCounter();
+                // 우선순위 초기화
+                resetPriority();
+                refreshPriorityPool();
+                // 그림판 초기화
+                localStorage.removeItem(DRAW_KEY_12);
+                if (drawCanvas12) { drawCanvas12.clear(); drawCanvas12.backgroundColor = '#ffffff'; drawCanvas12.renderAll(); }
                 showToast('모든 데이터가 초기화 되었습니다.');
             }
         }
@@ -477,6 +927,13 @@
         window.addEventListener('DOMContentLoaded', () => {
             initLocalStorage();
             restoreMissions();
+            refreshPriorityPool();
+            restorePriority();
+            bindDetailsToggle('priority-details', '1012-priority-open');
+            bindDetailsToggle('canvas-details', '1012-canvas-open');
+            // 그림판 details 가 이미 열려 있으면 즉시 초기화
+            const cd = document.getElementById('canvas-details');
+            if (cd && cd.open) setTimeout(initDrawCanvas12, 100);
         });
     </script>
 </body>
